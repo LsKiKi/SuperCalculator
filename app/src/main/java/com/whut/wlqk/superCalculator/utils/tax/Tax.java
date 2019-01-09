@@ -1,8 +1,9 @@
-package com.whut.wlqk.superCalculator.utils.rate;
+package com.whut.wlqk.superCalculator.utils.tax;
+
 /**
  * Created by 84074 on 2019/1/9.
  */
-interface Tax {
+public interface Tax {
 
     /**
      *

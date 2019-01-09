@@ -1,4 +1,4 @@
-package com.whut.wlqk.superCalculator.utils.rate;
+package com.whut.wlqk.superCalculator.utils.tax;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class PersonalTax implements Tax {
             put('4',new ArrayList<Double>(){
                 {
                     add(0.25);
-                    add(2620.0);
+                    add(2660.0);
                 }
             });
             put('5',new ArrayList<Double>(){
@@ -46,7 +46,7 @@ public class PersonalTax implements Tax {
             put('6',new ArrayList<Double>(){
                 {
                     add(0.35);
-                    add(0.0);
+                    add(7160.0);
                 }
             });
             put('7',new ArrayList<Double>(){
@@ -73,6 +73,11 @@ public class PersonalTax implements Tax {
         this.base = base;
     }
 
+    /**
+     *
+     * @param rawMoney  税前工资
+     * @param base 起征点
+     */
     public PersonalTax(double rawMoney, double base) {
         this.rawMoney = rawMoney;
         this.base = base;
@@ -84,26 +89,22 @@ public class PersonalTax implements Tax {
      */
     @Override
     public double result() {
-        char a = level();
-        double raw = rawMoney;
+        char a = level(rawMoney-base);
         double result = 0.0;
-        System.out.println(a);
         if ( a=='0')
             result = 0.0;
         else{
             double rate = rateTable.get(a).get(0);
             double convenientNum = rateTable.get(a).get(1);
-            result = (raw - base)*rate - convenientNum;
-            System.out.println(rate);
-            System.out.println(convenientNum);
+            result = (rawMoney - base)*rate - convenientNum;
+
         }
 
         return result;
     }
 
 
-    private char level(){
-        double money = rawMoney-base;
+    char level(double money){
         if ( money <= 0 )
             return '0';
         else if( money<=3000 )
