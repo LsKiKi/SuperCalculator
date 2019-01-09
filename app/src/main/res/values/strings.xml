@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">超级计算器</string>
+    <string name="huansuan">换算</string>
+    <string name="jisuan">计算</string>
+    <string name="shuidai">税贷</string>
+    <string name="geshui">个税</string>
+</resources>
