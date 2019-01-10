@@ -1,6 +1,6 @@
 package com.whut.wlqk.superCalculator.utils.loan;
 
-public class AverageCaptial extends LoanInstance implements Loan {
+public class AverageCaptial extends Loan implements LoanInterface {
 
     /**
      * 等额本金

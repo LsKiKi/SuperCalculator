@@ -1,6 +1,6 @@
 package com.whut.wlqk.superCalculator.utils.loan;
 
-public class AverageCaptialPlusInterest extends LoanInstance implements Loan {
+public class AverageCaptialPlusInterest extends Loan implements LoanInterface {
 
     public AverageCaptialPlusInterest(double amountOwed, int monthNum, double rate) {
         super(amountOwed, monthNum, rate);

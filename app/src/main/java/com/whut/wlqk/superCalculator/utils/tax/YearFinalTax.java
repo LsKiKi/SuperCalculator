@@ -1,7 +1,7 @@
 package com.whut.wlqk.superCalculator.utils.tax;
 
 
-public class YearFinalTax extends PersonalTax implements Tax {
+public class YearFinalTax extends PersonalTax implements TaxInterface {
 
 
     /**
@@ -29,4 +29,6 @@ public class YearFinalTax extends PersonalTax implements Tax {
         }
         return result;
     }
+
+
 }
