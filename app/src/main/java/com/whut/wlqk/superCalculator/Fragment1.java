@@ -9,13 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-
-public class Fragment1 extends Fragment /*implements View.OnClickListener*/ {
-    public Fragment1() {
-        // Required empty public constructor
-    }
-
-
+public class Fragment1 extends Fragment implements View.OnClickListener {
     //显示框
     EditText input;
     //按钮对象
@@ -24,37 +18,36 @@ public class Fragment1 extends Fragment /*implements View.OnClickListener*/ {
     boolean clr_flag;    //判断et中是否清空
     boolean point_flag = false;
 
-    /*@Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment1, container, false);
-        ButterKnife.bind(this, view);
-        initData();
+        initData(view);
         return view;
     }
 
-    private void initData() {
+    private void initData(View view) {
         //按钮对象
-        clear = (Button) findViewById(R.id.btn_AC);
-        delete = (Button) findViewById(R.id.btn_Del);
-        charAdd = (Button) findViewById(R.id.btn_add);
-        charSub = (Button) findViewById(R.id.btn_sub);
-        charMul = (Button) findViewById(R.id.btn_mul);
-        charDiv = (Button) findViewById(R.id.btn_div);
-        point = (Button) findViewById(R.id.btn_point);
-        equal = (Button) findViewById(R.id.btn_equ);
+        clear = view.findViewById(R.id.btn_AC);
+        delete = view.findViewById(R.id.btn_Del);
+        charAdd = view.findViewById(R.id.btn_Add);
+        charSub = view.findViewById(R.id.btn_Sub);
+        charMul = view.findViewById(R.id.btn_Mul);
+        charDiv = view.findViewById(R.id.btn_Div);
+        point = view.findViewById(R.id.btn_Point);
+        equal = view.findViewById(R.id.btn_Equ);
 
-        num0 = (Button) findViewById(R.id.btn_0);
-        num1 = (Button) findViewById(R.id.btn_1);
-        num2 = (Button) findViewById(R.id.btn_2);
-        num3 = (Button) findViewById(R.id.btn_3);
-        num4 = (Button) findViewById(R.id.btn_4);
-        num5 = (Button) findViewById(R.id.btn_5);
-        num6 = (Button) findViewById(R.id.btn_6);
-        num7 = (Button) findViewById(R.id.btn_7);
-        num8 = (Button) findViewById(R.id.btn_8);
-        num9 = (Button) findViewById(R.id.btn_9);
-        input = (EditText) findViewById(R.id.input);
+        num0 = view.findViewById(R.id.btn_0);
+        num1 = view.findViewById(R.id.btn_1);
+        num2 = view.findViewById(R.id.btn_2);
+        num3 = view.findViewById(R.id.btn_3);
+        num4 = view.findViewById(R.id.btn_4);
+        num5 = view.findViewById(R.id.btn_5);
+        num6 = view.findViewById(R.id.btn_6);
+        num7 = view.findViewById(R.id.btn_7);
+        num8 = view.findViewById(R.id.btn_8);
+        num9 = view.findViewById(R.id.btn_9);
+        input = (EditText) view.findViewById(R.id.input);
 
         //设置按钮的点击事件
         num0.setOnClickListener(this);
@@ -96,17 +89,18 @@ public class Fragment1 extends Fragment /*implements View.OnClickListener*/ {
                     str = "";
                     input.setText("");
                 }
-                input.setText(str + ((Button) view).getText());
+                input.setText(str.concat(((Button) view).getText().toString()));
                 break;
-            case R.id.btn_point:
-                if (point_flag) break;
+            case R.id.btn_Point:
+                if (point_flag || str.isEmpty() || str.endsWith("+") || str.endsWith("-") || str.endsWith("×") || str.endsWith("÷"))
+                    break;
                 point_flag = true;
                 if (clr_flag) {
                     clr_flag = false;
                     str = "";
                     input.setText("");
                 }
-                input.setText(str + ((Button) view).getText());
+                input.setText(str.concat(((Button) view).getText().toString()));
                 break;
             case R.id.btn_AC:
                 if (clr_flag) {
@@ -116,32 +110,31 @@ public class Fragment1 extends Fragment /*implements View.OnClickListener*/ {
                 input.setText("");
                 point_flag = false;
                 break;
-            case R.id.btn_add:
-            case R.id.btn_sub:
-            case R.id.btn_mul:
-            case R.id.btn_div:
+            case R.id.btn_Add:
+            case R.id.btn_Sub:
+            case R.id.btn_Mul:
+            case R.id.btn_Div:
                 if (clr_flag) {
                     clr_flag = false;
                     str = "";
                     input.setText("");
                 }
                 point_flag = false;
-                if(str.contains("+")||str.contains("-")||str.contains("×")||str.contains("÷")) {
-                    str=str.substring(0,str.indexOf(" "));
+                if (str.endsWith("+") || str.endsWith("-") || str.endsWith("×") || str.endsWith("÷")) {
+                    str = str.substring(0, str.length() - 1);
                 }
-                input.setText(str + ((Button) view).getText());
+                input.setText(str.concat(((Button) view).getText().toString()));
                 break;
             case R.id.btn_Del:
                 if (clr_flag) {
                     clr_flag = false;
                     str = "";
                     input.setText("");
-                } else if (str != null && !str.equals("")) {
+                } else if (!str.isEmpty()) {
                     if (str.charAt(str.length() - 1) == '.') {
                         point_flag = false;
                     } else if (str.charAt(str.length() - 1) < '9' && '0' < str.charAt(str.length() - 1)) {
-                        if (str.length()>2 && str.charAt(str.length() - 1) > '9' && '0' > str.charAt(str.length() - 1))
-                        {
+                        if (str.length() > 2 && str.charAt(str.length() - 1) > '9' && '0' > str.charAt(str.length() - 1)) {
                             point_flag = false;
                             break;
                         }
@@ -161,8 +154,8 @@ public class Fragment1 extends Fragment /*implements View.OnClickListener*/ {
                 }
 
                 break;
-            case R.id.btn_equ:
-                getResult();
+            case R.id.btn_Equ:
+//                getResult();
             default:
         }
     }
@@ -204,9 +197,9 @@ public class Fragment1 extends Fragment /*implements View.OnClickListener*/ {
             }
             if (!s1.contains(".") && !s2.contains(".") && !op.equals("÷")) {
                 int res = (int) cnt;
-                input.setText(res + "");
+                input.setText(res);
             } else {
-                input.setText(cnt + "");
+                input.setText(String.valueOf(cnt));
             }
         }
         //s1不为空但s2为空
@@ -226,9 +219,9 @@ public class Fragment1 extends Fragment /*implements View.OnClickListener*/ {
             }
             if (!s1.contains(".")) {
                 int res = (int) cnt;
-                input.setText(res + "");
+                input.setText(res);
             } else {
-                input.setText(cnt + "");
+                input.setText(String.valueOf(cnt));
             }
         }
         //s1是空但s2不是空
@@ -248,13 +241,13 @@ public class Fragment1 extends Fragment /*implements View.OnClickListener*/ {
             }
             if (!s2.contains(".")) {
                 int res = (int) cnt;
-                input.setText(res + "");
+                input.setText(res);
             } else {
-                input.setText(cnt + "");
+                input.setText(String.valueOf(cnt));
             }
         } else {
             input.setText("");
         }
-    }*/
+    }
 
 }
