@@ -44,7 +44,7 @@
                     android:background="@drawable/selector_1"
                     android:text="@string/AC"
                     android:textColor="#ff5d00"
-                    android:textSize="30sp" />
+                    android:textSize="25sp" />
 
                 <Button
                     android:id="@+id/btn_Del"
@@ -56,7 +56,7 @@
                     android:text="@string/Del"
                     android:textAllCaps="false"
                     android:textColor="#6f7480"
-                    android:textSize="30sp" />
+                    android:textSize="25sp" />
 
                 <Button
                     android:id="@+id/btn_per"
