@@ -1,7 +1,25 @@
 <resources>
     <string name="app_name">超级计算器</string>
-    <string name="huansuan">换算</string>
     <string name="jisuan">计算</string>
-    <string name="shuidai">税贷</string>
+    <string name="fangdai">税贷</string>
     <string name="geshui">个税</string>
+    <string name="AC">AC</string>
+    <string name="Del">Del</string>
+    <string name="per">%</string>
+    <string name="Mul">×</string>
+    <string name="Div">÷</string>
+    <string name="Add">+</string>
+    <string name="Sub">-</string>
+    <string name="Point">.</string>
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="night">9</string>
+    <string name="Equ">=</string>
 </resources>
