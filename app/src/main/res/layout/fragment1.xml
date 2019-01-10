@@ -42,7 +42,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="AC"
+                    android:text="@string/AC"
                     android:textColor="#ff5d00"
                     android:textSize="30sp" />
 
@@ -53,7 +53,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="Del"
+                    android:text="@string/Del"
                     android:textAllCaps="false"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
@@ -65,7 +65,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="%"
+                    android:text="@string/per"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -76,7 +76,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="÷"
+                    android:text="@string/Div"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -92,7 +92,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="7"
+                    android:text="@string/seven"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -103,7 +103,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="8"
+                    android:text="@string/eight"
                     android:textColor="#6f7480"
                     android:textSize="30sp"
                     android:onClick="onClick"/>
@@ -115,7 +115,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="9"
+                    android:text="@string/night"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -126,7 +126,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="×"
+                    android:text="@string/Mul"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -146,7 +146,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="4"
+                    android:text="@string/four"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -157,7 +157,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="5"
+                    android:text="@string/five"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -168,7 +168,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="6"
+                    android:text="@string/six"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -179,7 +179,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="-"
+                    android:text="@string/Sub"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -195,7 +195,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="1"
+                    android:text="@string/one"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -206,7 +206,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="2"
+                    android:text="@string/two"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -217,7 +217,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="3"
+                    android:text="@string/three"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -228,7 +228,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="+"
+                    android:text="@string/Add"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -243,7 +243,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="0"
+                    android:text="@string/zero"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -254,7 +254,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:background="@drawable/selector_1"
-                    android:text="."
+                    android:text="@string/Point"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
@@ -265,7 +265,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     android:background="@drawable/selector_2"
-                    android:text="="
+                    android:text="@string/Equ"
                     android:textColor="#6f7480"
                     android:textSize="30sp" />
 
