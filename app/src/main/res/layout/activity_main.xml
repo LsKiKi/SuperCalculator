@@ -19,33 +19,35 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TableRow android:gravity="center">
+            <TableRow
+                android:id="@+id/titleBox"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/item_jisuan"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:paddingRight="20dp"
-                    android:text="计算"
+                    android:text="@string/jisuan"
                     android:textColor="#ff5d00"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/item_fangdai"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:text="房贷"
+                    android:text="@string/fangdai"
                     android:textColor="#000"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/item_shuidai"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:paddingLeft="20dp"
-                    android:text="税贷"
+                    android:text="@string/geshui"
                     android:textColor="#000"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
             </TableRow>
         </TableLayout>
