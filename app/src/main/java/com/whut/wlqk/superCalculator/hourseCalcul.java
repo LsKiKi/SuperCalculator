@@ -2,7 +2,6 @@ package com.whut.wlqk.superCalculator;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -17,49 +16,48 @@ public class hourseCalcul extends Fragment implements RadioGroup.OnCheckedChange
     private FragmentManager fm;
     private Fragment oneFragment, twoFragment, threeFragment;
 
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.hourseCalcul);
-        View view= inflater.inflate(R.layout.hourseCalcul, container, false);
-        return view;
-        //fm = getSupportFragmentManager();
-        //RadioGroup tabRadio = (RadioGroup) findViewById(R.id.tab_radio);
-        //tabRadio.setOnCheckedChangeListener(this);
 
+        View view = inflater.inflate(R.layout.hoursecalcul, container, false);
+        //init_btn(view);
 
+        fm = getChildFragmentManager();
+        RadioGroup tabRadio = (RadioGroup) view.findViewById(R.id.tab_radio);
+        tabRadio.setOnCheckedChangeListener(this);
         // 如果不需要恢复之前的状态，默认显示的是第一个oneFragment
-//        if (savedInstanceState == null) {
-//            if (oneFragment == null) {
-//                oneFragment = new business();
-//            }
-//            fm.beginTransaction().add(R.id.fragment_container, oneFragment).commit();
-//        }
+        if (savedInstanceState == null){
+            if (oneFragment == null){
+                oneFragment = new business();
+            }
+            fm.beginTransaction().add(R.id.fragment_container, oneFragment).commit();
+        }
+
+        return view;
     }
 
     @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
         FragmentTransaction transaction = fm.beginTransaction();
-        switch (checkedId) {
+        switch (checkedId){
             case R.id.business:
                 // 从容器通过标签获取相同类型的Fragment
                 oneFragment = fm.findFragmentByTag("OneFragment");
                 // 判断是否为空
-                if (oneFragment == null) {
+                if (oneFragment == null){
                     oneFragment = new business();
                 }
                 // 判断是否添加这个fragment对象是否已经添加到容器中
                 // 如果已经添加过了，就show，如果没有添加就add
-                if (oneFragment.isAdded()) {
+                if (oneFragment.isAdded()){
                     transaction.show(oneFragment);
-                } else {
-                    transaction.add(R.id.fragment_container, oneFragment, "business");
+                }else{
+                    transaction.add(R.id.fragment_container,oneFragment, "OneFragment");
                 }
                 // 隐藏掉其他的两个fragment
-                if (twoFragment != null && twoFragment.isAdded()) {
+                if (twoFragment != null && twoFragment.isAdded()){
                     transaction.hide(twoFragment);
                 }
-                if (threeFragment != null && threeFragment.isAdded()) {
+                if (threeFragment != null && threeFragment.isAdded()){
                     transaction.hide(threeFragment);
                 }
                 break;
@@ -68,21 +66,21 @@ public class hourseCalcul extends Fragment implements RadioGroup.OnCheckedChange
                 // 从容器通过标签获取相同类型的Fragment
                 twoFragment = fm.findFragmentByTag("TwoFragment");
                 // 判断是否为空
-                if (twoFragment == null) {
+                if (twoFragment == null){
                     twoFragment = new fund();
                 }
                 // 判断是否添加这个fragment对象是否已经添加到容器中
                 // 如果已经添加过了，就show，如果没有添加就add
-                if (twoFragment.isAdded()) {
+                if (twoFragment.isAdded()){
                     transaction.show(twoFragment);
-                } else {
-                    transaction.add(R.id.fragment_container, twoFragment, "TwoFragment");
+                }else{
+                    transaction.add(R.id.fragment_container,twoFragment, "TwoFragment");
                 }
                 // 隐藏掉其他的两个fragment
-                if (oneFragment != null && oneFragment.isAdded()) {
+                if (oneFragment != null && oneFragment.isAdded()){
                     transaction.hide(oneFragment);
                 }
-                if (threeFragment != null && threeFragment.isAdded()) {
+                if (threeFragment != null && threeFragment.isAdded()){
                     transaction.hide(threeFragment);
                 }
                 break;
@@ -90,21 +88,21 @@ public class hourseCalcul extends Fragment implements RadioGroup.OnCheckedChange
                 // 从容器通过标签获取相同类型的Fragment
                 threeFragment = fm.findFragmentByTag("ThreeFragment");
                 // 判断是否为空
-                if (threeFragment == null) {
+                if (threeFragment == null){
                     threeFragment = new combination();
                 }
                 // 判断是否添加这个fragment对象是否已经添加到容器中
                 // 如果已经添加过了，就show，如果没有添加就add
-                if (threeFragment.isAdded()) {
+                if (threeFragment.isAdded()){
                     transaction.show(threeFragment);
-                } else {
-                    transaction.add(R.id.fragment_container, threeFragment);
+                }else{
+                    transaction.add(R.id.fragment_container,threeFragment);
                 }
                 // 隐藏掉其他的两个fragment
-                if (twoFragment != null && twoFragment.isAdded()) {
+                if (twoFragment != null && twoFragment.isAdded()){
                     transaction.hide(twoFragment);
                 }
-                if (oneFragment != null && oneFragment.isAdded()) {
+                if (oneFragment != null && oneFragment.isAdded()){
                     transaction.hide(oneFragment);
                 }
                 break;
@@ -113,5 +111,6 @@ public class hourseCalcul extends Fragment implements RadioGroup.OnCheckedChange
         }
         transaction.commitAllowingStateLoss();
     }
+
 
 }

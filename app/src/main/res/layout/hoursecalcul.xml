@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:gravity="center"
+    android:orientation="vertical">
 
 
     <FrameLayout
@@ -15,37 +15,39 @@
         <RadioGroup
             android:id="@+id/tab_radio"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/business"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
-                android:text="@string/business" />
+                android:buttonTint="#ec7b35"
+                android:checked="true"
+                android:text="@string/business"
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/fund"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/fund" />
+                android:buttonTint="#ec7b35"
+                android:text="@string/fund"
+                android:textSize="16sp" />
 
             <RadioButton
                 android:id="@+id/combination"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/combination" />
-
+                android:buttonTint="#ec7b35"
+                android:text="@string/combination"
+                android:textSize="16sp" />
         </RadioGroup>
-    </FrameLayout>
 
-    <!--<android.support.v4.view.ViewPager
-        android:id="@+id/ViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>-->
+    </FrameLayout>
 
 </LinearLayout>

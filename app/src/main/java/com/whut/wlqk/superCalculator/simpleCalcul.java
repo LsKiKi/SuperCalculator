@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.whut.wlqk.superCalculator.utils.calculator.Calculator;
 
 
-public class Fragment1 extends Fragment implements View.OnClickListener {
+public class simpleCalcul extends Fragment implements View.OnClickListener {
     //显示框
     EditText input;
     //按钮对象
@@ -25,7 +25,7 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment1, container, false);
+        View view = inflater.inflate(R.layout.simplecalcul, container, false);
         init_btn(view);
         return view;
     }
