@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.whut.wlqk.superCalculator.utils.calculator.Calculator;
+
 
 public class Fragment1 extends Fragment implements View.OnClickListener {
     //显示框
@@ -15,19 +17,28 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
     //按钮对象
     Button clear, delete, charAdd, charDiv, charMul, charSub, point, equal;
     Button num0, num1, num2, num3, num4, num5, num6, num7, num8, num9;
-    boolean clr_flag;    //判断et中是否清空
-    boolean point_flag = false;
+    //本次计算结束标志
+    boolean compute_flag = false;
+    //最后一次计算的结果
+    String last_result = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment1, container, false);
-        initData(view);
+        init_btn(view);
         return view;
     }
 
-    private void initData(View view) {
-        //按钮对象
+    /**
+     * 按钮绑定和事件监听
+     *
+     * @param view view对象
+     */
+    private void init_btn(View view) {
+        /*
+         * 绑定按钮
+         */
         clear = view.findViewById(R.id.btn_AC);
         delete = view.findViewById(R.id.btn_Del);
         charAdd = view.findViewById(R.id.btn_Add);
@@ -36,7 +47,6 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         charDiv = view.findViewById(R.id.btn_Div);
         point = view.findViewById(R.id.btn_Point);
         equal = view.findViewById(R.id.btn_Equ);
-
         num0 = view.findViewById(R.id.btn_0);
         num1 = view.findViewById(R.id.btn_1);
         num2 = view.findViewById(R.id.btn_2);
@@ -47,9 +57,12 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
         num7 = view.findViewById(R.id.btn_7);
         num8 = view.findViewById(R.id.btn_8);
         num9 = view.findViewById(R.id.btn_9);
-        input = (EditText) view.findViewById(R.id.input);
+        input = view.findViewById(R.id.input);
+        input.setEnabled(false);  // 设置输入框不可编辑
 
-        //设置按钮的点击事件
+        /*
+         * 设置btn的click监听
+         */
         num0.setOnClickListener(this);
         num1.setOnClickListener(this);
         num2.setOnClickListener(this);
@@ -73,6 +86,9 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
 
     public void onClick(View view) {
         String str = input.getText().toString();
+        // 若按键发生在一次计算结束之后，清空文本框
+        if (compute_flag)
+            str = "";
         switch (view.getId()) {
             case R.id.btn_0:
             case R.id.btn_1:
@@ -84,170 +100,74 @@ public class Fragment1 extends Fragment implements View.OnClickListener {
             case R.id.btn_7:
             case R.id.btn_8:
             case R.id.btn_9:
-                if (clr_flag) {
-                    clr_flag = false;
-                    str = "";
-                    input.setText("");
-                }
+                compute_flag = false;  //输入数字，本次计算尚未结束
                 input.setText(str.concat(((Button) view).getText().toString()));
                 break;
             case R.id.btn_Point:
-                if (point_flag || str.isEmpty() || str.endsWith("+") || str.endsWith("-") || str.endsWith("×") || str.endsWith("÷"))
+                //若文本框非空，且前一个字符非运算符，且前一个数种不含小数点
+                if (str.isEmpty() || str.endsWith("+") || str.endsWith("-") || str.endsWith("×") || str.endsWith("÷"))
                     break;
-                point_flag = true;
-                if (clr_flag) {
-                    clr_flag = false;
-                    str = "";
-                    input.setText("");
+                for (int i = str.length() - 1; i >= 0; i--) {
+                    // 找到小数点
+                    if (str.charAt(i) == '.') {
+                        break;
+                    }
+                    // 找到非数（这个数字结束） 或最前端
+                    if (i == 0 || str.charAt(i) > '9' || '0' > str.charAt(i)) {
+                        input.setText(str.concat("."));
+                        break;
+                    }
                 }
-                input.setText(str.concat(((Button) view).getText().toString()));
                 break;
             case R.id.btn_AC:
-                if (clr_flag) {
-                    clr_flag = false;
-                }
-                str = "";
+                //清空按钮，设置文本框为空
+                compute_flag = false;
                 input.setText("");
-                point_flag = false;
                 break;
             case R.id.btn_Add:
             case R.id.btn_Sub:
             case R.id.btn_Mul:
             case R.id.btn_Div:
-                if (clr_flag) {
-                    clr_flag = false;
-                    str = "";
-                    input.setText("");
+                if (str.isEmpty()) {
+                    //若文本为空，且上次计算刚刚结束，利用结果进行计算
+                    if (compute_flag) {
+                        //上次结算结果非法，输入无效
+                        if (last_result.equals("ERROR"))
+                            break;
+                            //上次结果合法，保留
+                        else {
+                            str = last_result;
+                            compute_flag = false;
+                        }
+                    } else
+                        break;
                 }
-                point_flag = false;
-                if (str.endsWith("+") || str.endsWith("-") || str.endsWith("×") || str.endsWith("÷")) {
+                //若前一个字符为运算符或小数点，修改运算符
+                if (str.endsWith("+") || str.endsWith("-") || str.endsWith("×") || str.endsWith("÷") || str.endsWith(".")) {
                     str = str.substring(0, str.length() - 1);
                 }
                 input.setText(str.concat(((Button) view).getText().toString()));
                 break;
             case R.id.btn_Del:
-                if (clr_flag) {
-                    clr_flag = false;
-                    str = "";
+                //上次计算刚结束，清除所有
+                if (compute_flag) {
                     input.setText("");
-                } else if (!str.isEmpty()) {
-                    if (str.charAt(str.length() - 1) == '.') {
-                        point_flag = false;
-                    } else if (str.charAt(str.length() - 1) < '9' && '0' < str.charAt(str.length() - 1)) {
-                        if (str.length() > 2 && str.charAt(str.length() - 1) > '9' && '0' > str.charAt(str.length() - 1)) {
-                            point_flag = false;
-                            break;
-                        }
-                    } else {
-                        for (int i = str.length() - 2; i >= 0; i--) {
-                            if (str.charAt(i) == '.') {
-                                point_flag = true;
-                                break;
-                            }
-                            if (str.charAt(i) != '.' && str.charAt(str.length() - 1) > '9' && '0' > str.charAt(str.length() - 1)) {
-                                point_flag = false;
-                                break;
-                            }
-                        }
-                    }
-                    input.setText(str.substring(0, str.length() - 1));
+                    compute_flag = false;
+                    break;
                 }
-
+                if (!str.isEmpty())
+                    input.setText(str.substring(0, str.length() - 1));
                 break;
             case R.id.btn_Equ:
-//                getResult();
+                // 刚结束计算，无视
+                if (compute_flag)
+                    break;
+                //输出计算结果
+                String result = Calculator.calculate(str); //调用计算函数
+                input.setText(str.concat('\n' + result)); //显示结果
+                last_result = result; //保存结果
+                compute_flag = true;  //设置标志位
             default:
         }
     }
-
-    private void getResult() {
-        String exp = input.getText().toString();
-        if (exp == null || exp.equals("")) return;
-        //因为没有运算符所以不用运算
-        if (!exp.contains(" ")) {
-            return;
-        }
-        if (clr_flag) {
-            clr_flag = false;
-            return;
-        }
-        clr_flag = true;
-        //截取运算符前面的字符串
-        String s1 = exp.substring(0, exp.indexOf(" "));
-        //截取的运算符
-        String op = exp.substring(exp.indexOf(" ") + 1, exp.indexOf(" ") + 2);
-        //截取运算符后面的字符串
-        String s2 = exp.substring(exp.indexOf(" ") + 3);
-        double cnt = 0;
-        if (!s1.equals("") && !s2.equals("")) {
-            double d1 = Double.parseDouble(s1);
-            double d2 = Double.parseDouble(s2);
-            if (op.equals("+")) {
-                cnt = d1 + d2;
-            }
-            if (op.equals("-")) {
-                cnt = d1 - d2;
-            }
-            if (op.equals("×")) {
-                cnt = d1 * d2;
-            }
-            if (op.equals("÷")) {
-                if (d2 == 0) cnt = 0;
-                else cnt = d1 / d2;
-            }
-            if (!s1.contains(".") && !s2.contains(".") && !op.equals("÷")) {
-                int res = (int) cnt;
-                input.setText(res);
-            } else {
-                input.setText(String.valueOf(cnt));
-            }
-        }
-        //s1不为空但s2为空
-        else if (!s1.equals("") && s2.equals("")) {
-            double d1 = Double.parseDouble(s1);
-            if (op.equals("+")) {
-                cnt = d1;
-            }
-            if (op.equals("-")) {
-                cnt = d1;
-            }
-            if (op.equals("×")) {
-                cnt = 0;
-            }
-            if (op.equals("÷")) {
-                cnt = 0;
-            }
-            if (!s1.contains(".")) {
-                int res = (int) cnt;
-                input.setText(res);
-            } else {
-                input.setText(String.valueOf(cnt));
-            }
-        }
-        //s1是空但s2不是空
-        else if (s1.equals("") && !s2.equals("")) {
-            double d2 = Double.parseDouble(s2);
-            if (op.equals("+")) {
-                cnt = d2;
-            }
-            if (op.equals("-")) {
-                cnt = 0 - d2;
-            }
-            if (op.equals("×")) {
-                cnt = 0;
-            }
-            if (op.equals("÷")) {
-                cnt = 0;
-            }
-            if (!s2.contains(".")) {
-                int res = (int) cnt;
-                input.setText(res);
-            } else {
-                input.setText(String.valueOf(cnt));
-            }
-        } else {
-            input.setText("");
-        }
-    }
-
 }
