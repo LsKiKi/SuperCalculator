@@ -2,6 +2,7 @@ package com.whut.wlqk.superCalculator;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -17,9 +18,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView item_jisuan, item_fangdai, item_shuidai;
     private ViewPager vp;
-    private Fragment1 oneFragment;
-    private Fragment2 twoFragment;
-    private Fragment3 threeFragment;
+    private simpleCalcul oneFragment;
+    private personCalcul twoFragment;
+    private hourseCalcul threeFragment;
     private List<Fragment> mFragmentList = new ArrayList<Fragment>();
     private FragmentAdapter  mFragmentAdapter;
 
@@ -73,9 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         item_shuidai.setOnClickListener(this);
 
         vp = (ViewPager) findViewById(R.id.mainViewPager);
-        oneFragment = new Fragment1();
-        twoFragment = new Fragment2();
-        threeFragment = new Fragment3();
+        oneFragment = new simpleCalcul();
+        twoFragment = new personCalcul();
+        threeFragment = new hourseCalcul();
 
         //给FragmentList添加数据
         mFragmentList.add(oneFragment);
@@ -142,7 +143,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-
 
 }

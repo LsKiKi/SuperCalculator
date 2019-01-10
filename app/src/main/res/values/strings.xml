@@ -3,6 +3,9 @@
     <string name="jisuan">计算</string>
     <string name="fangdai">税贷</string>
     <string name="geshui">个税</string>
+    <string name="business">商业贷款</string>
+    <string name="fund">公积金贷款</string>
+    <string name="combination">组合贷款</string>
     <string name="AC">AC</string>
     <string name="Del">Del</string>
     <string name="per">%</string>
