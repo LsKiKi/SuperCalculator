@@ -17,39 +17,53 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="15dp">
 
-            <TableRow android:gravity="center">
+            <TableRow
+                android:id="@+id/titleBox"
+                android:gravity="center"
+                >
 
                 <TextView
                     android:id="@+id/item_jisuan"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:paddingRight="20dp"
-                    android:text="计算"
+                    android:paddingTop="8dp"
+                    android:paddingRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:text="@string/jisuan"
                     android:textColor="#ff5d00"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/item_fangdai"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:text="房贷"
+                    android:paddingTop="8dp"
+                    android:paddingRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:text="@string/fangdai"
                     android:textColor="#000"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/item_shuidai"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:paddingLeft="20dp"
-                    android:text="税贷"
+                    android:paddingTop="8dp"
+                    android:paddingRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:text="@string/geshui"
                     android:textColor="#000"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
             </TableRow>
         </TableLayout>
     </LinearLayout>
+
+
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/mainViewPager"
