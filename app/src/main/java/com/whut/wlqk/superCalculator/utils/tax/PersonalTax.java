@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by 84074 on 2019/1/9.
  */
-public class PersonalTax implements Tax {
+public class PersonalTax implements TaxInterface {
     double rawMoney;
     double base;
    //2018 旧税表
