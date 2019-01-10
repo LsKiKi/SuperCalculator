@@ -53,6 +53,9 @@
         </TableLayout>
     </LinearLayout>
 
+
+
+
     <android.support.v4.view.ViewPager
         android:id="@+id/mainViewPager"
         android:layout_width="match_parent"
