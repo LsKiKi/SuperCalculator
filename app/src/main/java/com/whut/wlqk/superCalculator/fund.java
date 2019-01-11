@@ -22,62 +22,60 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class fund extends Fragment implements View.OnClickListener{
+public class fund extends Fragment implements View.OnClickListener {
     public fund() {
         // Required empty public constructor
     }
+
     private Spinner sp1;
     private Spinner sp2;
     private Spinner sp3;
     EditText editText;
-    int id1,id3,years;
+    int id1, id3, years;
     Button admit;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fund, container, false);
+        View view = inflater.inflate(R.layout.fund, container, false);
         init_all(view);
         return view;
     }
+
     private void init_all(View view) {
-        editText=view.findViewById(R.id.money);
+        editText = view.findViewById(R.id.money);
         admit = view.findViewById(R.id.admit);
+
+        final String[] back_way_mItems = getResources().getStringArray(R.array.back_ways);
+        final String[] year_num_mItems = getResources().getStringArray(R.array.year);
+        final String[] interest_rate_mItems = getResources().getStringArray(R.array.interest_rate);
 
         sp1 = view.findViewById(R.id.sp1);
         sp2 = view.findViewById(R.id.sp2);
         sp3 = view.findViewById(R.id.sp3);
-        List<SpinnerData> lst1 = new ArrayList<SpinnerData>();
-        List<SpinnerData> lst3 = new ArrayList<SpinnerData>();
-        SpinnerData c1 = new SpinnerData(1, "等额本息(每月等额还款)");
-        lst1.add(c1);
-        SpinnerData c2 = new SpinnerData(2, "等额本金(每月递减还款)");
-        lst1.add(c2);
-        c1 = new SpinnerData(1, "基准利率(3.25%)");
-        lst3.add(c1);
-        c2 = new SpinnerData(2, "1.1倍(3.575%)");
-        lst3.add(c2);
-        SpinnerData c3 = new SpinnerData(3, "1.2倍(3.9%)");
-        lst3.add(c3);
-        ArrayAdapter<SpinnerData> Adapter1 = new ArrayAdapter<SpinnerData>(view.getContext(), android.R.layout.simple_spinner_item, lst1);
-        ArrayAdapter<SpinnerData> Adapter3 = new ArrayAdapter<SpinnerData>(view.getContext(), android.R.layout.simple_spinner_item, lst3);
+        ArrayAdapter<String> Adapter1 = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
+        ArrayAdapter<String> Adapter2 = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
+        ArrayAdapter<String> Adapter3 = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, interest_rate_mItems);
 
-        Adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Adapter1.setDropDownViewResource(R.layout.item_dialog_spinner_select);
+        Adapter2.setDropDownViewResource(R.layout.item_dialog_spinner_select);
+        Adapter3.setDropDownViewResource(R.layout.item_dialog_spinner_select);
         sp1.setAdapter(Adapter1);
+        sp2.setAdapter(Adapter2);
         sp3.setAdapter(Adapter3);
         sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 /*
                  * ids是刚刚新建的list里面的ID
                  */
-                id1 = ((SpinnerData) sp1.getSelectedItem()).GetID();
+                id1 = position + 1;
                 System.out.println(id1);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
-                id1 =1;
+                id1 = 1;
             }
         });
         sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -92,7 +90,7 @@ public class fund extends Fragment implements View.OnClickListener{
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
-                years =1;
+                years = 1;
             }
         });
         sp3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -100,29 +98,30 @@ public class fund extends Fragment implements View.OnClickListener{
                 /*
                  * id是刚刚新建的list里面的ID
                  */
-                id3 = ((SpinnerData) sp3.getSelectedItem()).GetID();
+                id3 = position + 1;
                 System.out.println(id3);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
-                id3 =1;
+                id3 = 1;
             }
         });
         admit.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View view) {
-        Double money=Double.parseDouble(editText.getText().toString());
+        Double money = Double.parseDouble(editText.getText().toString());
         System.out.println(money);
-        switch (id1){
+        switch (id1) {
             case 1:
-                Loan loan1= new AverageCaptialPlusInterest(money,years,0.0325);
+                Loan loan1 = new AverageCaptialPlusInterest(money, years, 0.0325);
                 System.out.println(((AverageCaptialPlusInterest) loan1).getTotalMoney());
                 break;
             case 2:
-                Loan loan2= new AverageCaptial(money,years,0.0325);
+                Loan loan2 = new AverageCaptial(money, years, 0.0325);
                 System.out.println(((AverageCaptial) loan2).getTotalMoney());
                 break;
         }
@@ -138,7 +137,6 @@ public class fund extends Fragment implements View.OnClickListener{
 //            Spinner sp = view.findViewById(spinnerID);
 //            return ((SpinnerData)sp.getSelectedItem()).GetValue();
 //        }
-
 
 
 }

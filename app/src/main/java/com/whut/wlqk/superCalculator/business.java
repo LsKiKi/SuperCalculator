@@ -50,21 +50,53 @@ public class business extends Fragment {
         /*
          * 在xml资源中加载数据
          */
-        String[] back_way_mItems = getResources().getStringArray(R.array.back_ways);
+        final String[] back_way_mItems = getResources().getStringArray(R.array.back_ways);
         final String[] year_num_mItems = getResources().getStringArray(R.array.year);
 
         /*
          * 声明ArrayAdapter、填充数据、并绑定到组件中
+         * 使用自定义 Spinner 样式
          */
-        final ArrayAdapter<String> back_way_adapter = new ArrayAdapter<String>(getActivity(), R.layout.item_spinner_select, back_way_mItems);
+        final ArrayAdapter<String> back_way_adapter = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
         back_way_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
         back_way.setAdapter(back_way_adapter);
-        final ArrayAdapter<String> year_num_adapter = new ArrayAdapter<String>(getActivity(), R.layout.item_spinner_select, year_num_mItems);
+        final ArrayAdapter<String> year_num_adapter = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
         year_num_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
         year_num.setAdapter(year_num_adapter);
 
         /*
-         * 年份Spinner选中事件
+         * 贷款数额 EditText 修改事件
+         */
+        total_loan.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String str = s.toString();
+                /*
+                 * 根据是否已输入，修改字号
+                 */
+                if (!str.isEmpty()) {
+                    total_loan.setTextSize(30);
+                    total_loan.getPaint().setFakeBoldText(true);
+                } else {
+                    total_loan.setTextSize(24);
+                    total_loan.getPaint().setFakeBoldText(false);
+                }
+
+            }
+        });
+
+        /*
+         * 年份 Spinner 选中事件
          */
         year_num.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -113,18 +145,25 @@ public class business extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String str = base_rate.getText().toString();
+                String str = s.toString();
+                /*
+                 * 若为空，使用默认利率
+                 */
                 if (str.isEmpty()) {
                     real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_ / 100));
                     rate_ = default_rate;
-                } else {
+                }
+                /*
+                 * 若非空，使用输入的利率
+                 */
+                else {
                     /*
                      * 最多两位小数，若多于两位小数则无视本次输入
                      */
                     if (str.indexOf('.') != -1 && str.indexOf('.') < str.length() - 3) {
                         int index = base_rate.getSelectionStart();
-                        base_rate.getText().delete(index - 1, index);
-                        str = base_rate.getText().toString();
+                        s.delete(index - 1, index);
+                        str = s.toString();
                     }
                     rate_ = Double.parseDouble(str);
                     real_rate.setText(new DecimalFormat("#.####%").format(rate_ * times_ / 100));
@@ -149,18 +188,25 @@ public class business extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String str = times.getText().toString();
+                String str = s.toString();
+                /*
+                 * 若为空，使用默认倍数
+                 */
                 if (str.isEmpty()) {
                     real_rate.setText(new DecimalFormat("#.####%").format(rate_ * default_times / 100));
                     times_ = default_times;
-                } else {
+                }
+                /*
+                 * 若非空，使用输入的倍数
+                 */
+                else {
                     /*
                      * 最多两位小数，若多于两位小数则无视本次输入
                      */
                     if (str.indexOf('.') != -1 && str.indexOf('.') < str.length() - 3) {
                         int index = times.getSelectionStart();
-                        times.getText().delete(index - 1, index);
-                        str = times.getText().toString();
+                        s.delete(index - 1, index);
+                        str = s.toString();
                     }
                     times_ = Double.parseDouble(str);
                     real_rate.setText(new DecimalFormat("#.####%").format(rate_ * times_ / 100));

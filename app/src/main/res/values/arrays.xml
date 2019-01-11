@@ -35,8 +35,9 @@
         <item>    29   </item>
         <item>    30   </item>
     </string-array>
-    <string-array name="business_rates">
-        <item>7折3.43%</item>
-        <item>基准利率4.9%</item>
+    <string-array name="interest_rate">
+        <item>基准利率(3.25%)</item>
+        <item>1.1倍(3.575%)</item>
+        <item>1.2倍(3.9%)</item>
     </string-array>
 </resources>

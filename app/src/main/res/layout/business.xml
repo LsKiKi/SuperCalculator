@@ -38,8 +38,7 @@
                 android:ems="10"
                 android:hint="@string/input_total_loan"
                 android:inputType="numberDecimal"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="24sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -175,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
-                android:background="@color/colorTitleSelected"
+                android:background="@drawable/radius"
                 android:text="@string/start_compute_business_loan" />
         </LinearLayout>
 

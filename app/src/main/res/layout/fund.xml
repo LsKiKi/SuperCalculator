@@ -68,7 +68,7 @@
                         android:layout_width="207dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:entries="@array/paymethod" />
+                        android:entries="@array/back_ways" />
                 </LinearLayout>
 
                 <LinearLayout
