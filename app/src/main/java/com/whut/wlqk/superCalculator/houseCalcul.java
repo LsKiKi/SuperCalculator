@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 
-public class hourseCalcul extends Fragment implements RadioGroup.OnCheckedChangeListener {
+public class houseCalcul extends Fragment implements RadioGroup.OnCheckedChangeListener {
 
     // 负责全局的FragmentManager, 建议使用support包中的FramengManager类
     private FragmentManager fm;
@@ -22,7 +22,7 @@ public class hourseCalcul extends Fragment implements RadioGroup.OnCheckedChange
         //init_btn(view);
 
         fm = getChildFragmentManager();
-        RadioGroup tabRadio = (RadioGroup) view.findViewById(R.id.tab_radio);
+        RadioGroup tabRadio = view.findViewById(R.id.loan_tab_radio);
         tabRadio.setOnCheckedChangeListener(this);
         // 如果不需要恢复之前的状态，默认显示的是第一个oneFragment
         if (savedInstanceState == null){
