@@ -2,6 +2,7 @@ package com.whut.wlqk.superCalculator;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,11 +16,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView item_jisuan, item_fangdai, item_shuidai;
+    private TextView item_jisuan, item_geshui, item_fangdai;
     private ViewPager vp;
-    private Fragment1 oneFragment;
-    private Fragment2 twoFragment;
-    private Fragment3 threeFragment;
+    private simpleCalcul oneFragment;
+    private personCalcul twoFragment;
+    private hourseCalcul threeFragment;
     private List<Fragment> mFragmentList = new ArrayList<Fragment>();
     private FragmentAdapter  mFragmentAdapter;
 
@@ -65,17 +66,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void initViews() {
         item_jisuan = (TextView) findViewById(R.id.item_jisuan);
+        item_geshui = (TextView) findViewById(R.id.item_geshui);
         item_fangdai = (TextView) findViewById(R.id.item_fangdai);
-        item_shuidai = (TextView) findViewById(R.id.item_shuidai);
 
         item_jisuan.setOnClickListener(this);
+        item_geshui.setOnClickListener(this);
         item_fangdai.setOnClickListener(this);
-        item_shuidai.setOnClickListener(this);
 
         vp = (ViewPager) findViewById(R.id.mainViewPager);
-        oneFragment = new Fragment1();
-        twoFragment = new Fragment2();
-        threeFragment = new Fragment3();
+        oneFragment = new simpleCalcul();
+        twoFragment = new personCalcul();
+        threeFragment = new hourseCalcul();
 
         //给FragmentList添加数据
         mFragmentList.add(oneFragment);
@@ -93,12 +94,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.item_jisuan:
                 vp.setCurrentItem(0, true);
                 break;
-            case R.id.item_fangdai:
+            case R.id.item_geshui:
                 vp.setCurrentItem(1, true);
                 break;
-            case R.id.item_shuidai:
+            case R.id.item_fangdai:
                 vp.setCurrentItem(2, true);
                 break;
+
         }
     }
 
@@ -109,16 +111,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void changeTextColor(int position) {
         if (position == 0) {
             item_jisuan.setTextColor(getResources().getColor(R.color.colorTitleSelected));
+            item_geshui.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
             item_fangdai.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
-            item_shuidai.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
         } else if (position == 1) {
+            item_geshui.setTextColor(getResources().getColor(R.color.colorTitleSelected));
+            item_jisuan.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
+            item_fangdai.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
+        } else if (position == 2) {
             item_fangdai.setTextColor(getResources().getColor(R.color.colorTitleSelected));
             item_jisuan.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
-            item_shuidai.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
-        } else if (position == 2) {
-            item_shuidai.setTextColor(getResources().getColor(R.color.colorTitleSelected));
-            item_jisuan.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
-            item_fangdai.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
+            item_geshui.setTextColor(getResources().getColor(R.color.colorTitleUnSelected));
         }
     }
 
@@ -142,7 +144,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-
 
 }

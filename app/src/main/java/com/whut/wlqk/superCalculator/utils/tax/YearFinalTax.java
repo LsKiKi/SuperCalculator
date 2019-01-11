@@ -1,7 +1,7 @@
 package com.whut.wlqk.superCalculator.utils.tax;
 
 
-public class YearFinalTax extends PersonalTax implements Tax {
+public class YearFinalTax extends PersonalTax implements TaxInterface {
 
 
     /**
@@ -26,9 +26,9 @@ public class YearFinalTax extends PersonalTax implements Tax {
             double rate = rateTable.get(a).get(0);
             double convenientNum = rateTable.get(a).get(1);
             result = (rawMoney - base)*rate - convenientNum;
-            System.out.println(rate);
-            System.out.println(convenientNum);
         }
         return result;
     }
+
+
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RadioGroup
+            android:id="@+id/tab_radio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/business"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:buttonTint="#ec7b35"
+                android:checked="true"
+                android:text="@string/business"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/fund"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="#ec7b35"
+                android:text="@string/fund"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/combination"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:buttonTint="#ec7b35"
+                android:text="@string/combination"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+    </FrameLayout>
+
+</LinearLayout>

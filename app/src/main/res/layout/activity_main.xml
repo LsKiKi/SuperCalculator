@@ -37,6 +37,17 @@
                     android:textSize="20sp" />
 
                 <TextView
+                    android:id="@+id/item_geshui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:text="@string/geshui"
+                    android:textColor="#000"
+                    android:textSize="20sp" />
+
+                <TextView
                     android:id="@+id/item_fangdai"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
@@ -47,22 +58,9 @@
                     android:textColor="#000"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/item_shuidai"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="15dp"
-                    android:paddingLeft="15dp"
-                    android:text="@string/geshui"
-                    android:textColor="#000"
-                    android:textSize="20sp" />
-
             </TableRow>
         </TableLayout>
     </LinearLayout>
-
-
 
 
     <android.support.v4.view.ViewPager
