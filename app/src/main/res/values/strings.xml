@@ -27,45 +27,10 @@
     <string name="eight">8</string>
     <string name="night">9</string>
     <string name="Equ">=</string>
-    <string-array name="paymethod">
-        <item>等额本息(每月等额还款)</item>
-        <item>等额本金(每月递减还款)</item>
-    </string-array>
-    <string-array name="year">
-        <item id="1">    1    </item>
-        <item>    2    </item>
-        <item>    3    </item>
-        <item>    4    </item>
-        <item>    5    </item>
-        <item>    6    </item>
-        <item>    7    </item>
-        <item>    8    </item>
-        <item>    9    </item>
-        <item>    10   </item>
-        <item>    11   </item>
-        <item>    12   </item>
-        <item>    13   </item>
-        <item>    14   </item>
-        <item>    15   </item>
-        <item>    16   </item>
-        <item>    17   </item>
-        <item>    18   </item>
-        <item>    19   </item>
-        <item>    20   </item>
-        <item>    21   </item>
-        <item>    22   </item>
-        <item>    23   </item>
-        <item>    24   </item>
-        <item>    25   </item>
-        <item>    26   </item>
-        <item>    27   </item>
-        <item>    28   </item>
-        <item>    29   </item>
-        <item>    30   </item>
-    </string-array>
-    <string-array name="interest_rate">
-        <item>基准利率(3.25%)</item>
-        <item>1.1倍(3.575%)</item>
-        <item>1.2倍(3.9%)</item>
-    </string-array>
+    <string name="total_bussiness_loan">贷款总额（万）</string>
+    <string name="input_total_loan">请输入您的贷款总额</string>
+    <string name="back_way">还款方式</string>
+    <string name="month_number">还款月数</string>
+    <string name="rate">贷款利率</string>
+    <string name="start_compute_loan">开始计算</string>
 </resources>
