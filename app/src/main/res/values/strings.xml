@@ -27,10 +27,11 @@
     <string name="eight">8</string>
     <string name="night">9</string>
     <string name="Equ">=</string>
-    <string name="total_bussiness_loan">贷款总额（万）</string>
+    <string name="total_business_loan">贷款总额（万）</string>
     <string name="input_total_loan">请输入您的贷款总额</string>
     <string name="back_way">还款方式</string>
-    <string name="month_number">还款月数</string>
+    <string name="year_number">还款年数</string>
     <string name="rate">贷款利率</string>
-    <string name="start_compute_loan">开始计算</string>
+    <string name="start_compute_business_loan">开始计算</string>
+    <string name="business_tip">当前年限基准利率:商业%.2f%%</string>
 </resources>
