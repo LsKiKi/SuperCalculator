@@ -20,7 +20,7 @@ public class personCalcul extends Fragment implements RadioGroup.OnCheckedChange
         View view = inflater.inflate(R.layout.personcalcul, container, false);
 
         fm = getChildFragmentManager();
-        RadioGroup tabRadio = (RadioGroup) view.findViewById(R.id.tab_radio);
+        RadioGroup tabRadio = (RadioGroup) view.findViewById(R.id.tax_tab_radio);
         tabRadio.setOnCheckedChangeListener(this);
         // 如果不需要恢复之前的状态，默认显示的是第一个oneFragment
         if (savedInstanceState == null){
@@ -51,10 +51,11 @@ public class personCalcul extends Fragment implements RadioGroup.OnCheckedChange
                 }else{
                     transaction.add(R.id.fragment_container,oneFragment, "OneFragment");
                 }
-                // 隐藏掉其他的两个fragment
+                // 隐藏掉其他的fragment
                 if (twoFragment != null && twoFragment.isAdded()){
                     transaction.hide(twoFragment);
                 }
+                break;
 
             case R.id.annualbonus:
                 // 从容器通过标签获取相同类型的Fragment
@@ -70,10 +71,11 @@ public class personCalcul extends Fragment implements RadioGroup.OnCheckedChange
                 }else{
                     transaction.add(R.id.fragment_container,twoFragment, "TwoFragment");
                 }
-                // 隐藏掉其他的两个fragment
+                // 隐藏掉其他的fragment
                 if (oneFragment != null && oneFragment.isAdded()){
                     transaction.hide(oneFragment);
                 }
+                break;
             default:
                 break;
         }

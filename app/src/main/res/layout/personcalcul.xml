@@ -13,7 +13,7 @@
         android:layout_weight="1">
 
         <RadioGroup
-            android:id="@+id/tab_radio"
+            android:id="@+id/tax_tab_radio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
