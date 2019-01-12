@@ -1,7 +1,11 @@
 package com.whut.wlqk.superCalculator;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,59 +15,102 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.whut.wlqk.superCalculator.utils.SpinnerData;
 import com.whut.wlqk.superCalculator.utils.loan.AverageCaptial;
 import com.whut.wlqk.superCalculator.utils.loan.AverageCaptialPlusInterest;
 import com.whut.wlqk.superCalculator.utils.loan.Loan;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.text.DecimalFormat;
 
 
 public class fund extends Fragment implements View.OnClickListener {
+
+
+    Spinner back_way,year_num;
+    EditText total_loan, base_rate, times;
+    TextView real_rate, tips;
+    int id1, id3, total_years;
+    Button admit;
+    double default_rate, default_times = 1.0;
+    double rate_, times_ = default_times;
+
     public fund() {
         // Required empty public constructor
     }
 
-    private Spinner sp1;
-    private Spinner sp2;
-    private Spinner sp3;
-    EditText editText;
-    int id1, id3, years;
-    Button admit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fund, container, false);
-        init_all(view);
+        init(view);
         return view;
     }
 
-    private void init_all(View view) {
-        editText = view.findViewById(R.id.money);
-        admit = view.findViewById(R.id.admit);
+    private void init(View view) {
 
+        total_loan = view.findViewById(R.id.money);
+        admit = view.findViewById(R.id.admit);
+        base_rate = view.findViewById(R.id.fund_base_rate);
+        times = view.findViewById(R.id.fund_rate_times);
+        real_rate = view.findViewById(R.id.fund_real_rate);
+        tips = view.findViewById(R.id.fund_tips);
+        back_way = view.findViewById(R.id.fund_back_way);
+        year_num = view.findViewById(R.id.fund_year_num);
+
+
+
+        /*
+         *在xml资料中加载数据
+         */
         final String[] back_way_mItems = getResources().getStringArray(R.array.back_ways);
         final String[] year_num_mItems = getResources().getStringArray(R.array.year);
-        final String[] interest_rate_mItems = getResources().getStringArray(R.array.interest_rate);
 
-        sp1 = view.findViewById(R.id.sp1);
-        sp2 = view.findViewById(R.id.sp2);
-        sp3 = view.findViewById(R.id.sp3);
-        ArrayAdapter<String> Adapter1 = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
-        ArrayAdapter<String> Adapter2 = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
-        ArrayAdapter<String> Adapter3 = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, interest_rate_mItems);
+        /*
+         * 声明ArrayAdapter、填充数据、并绑定到组件中
+         * 使用自定义 Spinner 样式
+         */
+        ArrayAdapter<String> back_way_adapter = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
+        ArrayAdapter<String> year_num_adapter = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
 
-        Adapter1.setDropDownViewResource(R.layout.item_dialog_spinner_select);
-        Adapter2.setDropDownViewResource(R.layout.item_dialog_spinner_select);
-        Adapter3.setDropDownViewResource(R.layout.item_dialog_spinner_select);
-        sp1.setAdapter(Adapter1);
-        sp2.setAdapter(Adapter2);
-        sp3.setAdapter(Adapter3);
-        sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        back_way_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
+        back_way.setAdapter(back_way_adapter);
+        year_num_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
+        year_num.setAdapter(year_num_adapter);
+
+        /*
+         * 贷款数额 EditText 修改事件
+         */
+        total_loan.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String str = s.toString();
+                /*
+                 * 根据是否已输入，修改字号
+                 */
+                if (!str.isEmpty()) {
+                    total_loan.setTextSize(30);
+                    total_loan.getPaint().setFakeBoldText(true);
+                } else {
+                    total_loan.setTextSize(24);
+                    total_loan.getPaint().setFakeBoldText(false);
+                }
+
+            }
+        });
+
+        back_way.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 /*
                  * ids是刚刚新建的list里面的ID
@@ -78,34 +125,122 @@ public class fund extends Fragment implements View.OnClickListener {
                 id1 = 1;
             }
         });
-        sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+        /*
+         * 年份 Spinner 选中事件
+         */
+        year_num.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 /*
-                 * ids是刚刚新建的list里面的ID
+                 * 根据选择的年份判断基本利率
                  */
-                years = Integer.parseInt(sp2.getSelectedItem().toString());
-                System.out.println(years);
+                int pre_year = Integer.parseInt(year_num_mItems[position]);
+                default_rate = 4.35;
+                if (pre_year > 5) {
+                    default_rate = 4.9;
+                } else if (pre_year > 1) {
+                    default_rate = 4.75;
+                }
+                rate_ = default_rate;
+                /*
+                 * 修改提示语句、基准利率、准确利率
+                 */
+                tips.setText(String.format(view.getResources().getString(R.string.business_tip), default_rate));
+                base_rate.setText(String.valueOf(default_rate));
+                base_rate.setHint(String.valueOf(default_rate));
+                real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_ / 100));
+                total_years = Integer.parseInt(year_num.getSelectedItem().toString());
+                System.out.println(total_years);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
-                years = 1;
+                total_years = 1;
             }
         });
-        sp3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                /*
-                 * id是刚刚新建的list里面的ID
-                 */
-                id3 = position + 1;
-                System.out.println(id3);
+
+        /*
+         * 利率 EditText 修改事件
+         */
+        base_rate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-                id3 = 1;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String str = s.toString();
+                /*
+                 * 若为空，使用默认利率
+                 */
+                if (str.isEmpty()) {
+                    real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_ / 100));
+                    rate_ = default_rate;
+                }
+                /*
+                 * 若非空，使用输入的利率
+                 */
+                else {
+                    /*
+                     * 最多两位小数，若多于两位小数则无视本次输入
+                     */
+                    if (str.indexOf('.') != -1 && str.indexOf('.') < str.length() - 3) {
+                        int index = base_rate.getSelectionStart();
+                        s.delete(index - 1, index);
+                        str = s.toString();
+                    }
+                    rate_ = Double.parseDouble(str);
+                    real_rate.setText(new DecimalFormat("#.####%").format(rate_ * times_ / 100));
+                }
+            }
+        });
+
+        /*
+         * 倍数 EditText 修改事件
+         */
+        times.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String str = s.toString();
+                /*
+                 * 若为空，使用默认倍数
+                 */
+                if (str.isEmpty()) {
+                    real_rate.setText(new DecimalFormat("#.####%").format(rate_ * default_times / 100));
+                    times_ = default_times;
+                }
+                /*
+                 * 若非空，使用输入的倍数
+                 */
+                else {
+                    /*
+                     * 最多两位小数，若多于两位小数则无视本次输入
+                     */
+                    if (str.indexOf('.') != -1 && str.indexOf('.') < str.length() - 3) {
+                        int index = times.getSelectionStart();
+                        s.delete(index - 1, index);
+                        str = s.toString();
+                    }
+                    times_ = Double.parseDouble(str);
+                    real_rate.setText(new DecimalFormat("#.####%").format(rate_ * times_ / 100));
+                }
             }
         });
         admit.setOnClickListener(this);
@@ -113,30 +248,27 @@ public class fund extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Double money = Double.parseDouble(editText.getText().toString());
+        double money = Double.parseDouble(total_loan.getText().toString());
+        double rate = Double.parseDouble(real_rate.getText().toString().split("%")[0]) / 100;
         System.out.println(money);
-        switch (id1) {
-            case 1:
-                Loan loan1 = new AverageCaptialPlusInterest(money, years, 0.0325);
-                System.out.println(((AverageCaptialPlusInterest) loan1).getTotalMoney());
-                break;
-            case 2:
-                Loan loan2 = new AverageCaptial(money, years, 0.0325);
-                System.out.println(((AverageCaptial) loan2).getTotalMoney());
-                break;
-        }
+//        switch (id1) {
+//            case 1:
+//                Loan loan1 = new AverageCaptialPlusInterest(money, total_years, rate);
+//                System.out.println(((AverageCaptialPlusInterest) loan1).getTotalMoney());
+//                break;
+//            case 2:
+//                Loan loan2 = new AverageCaptial(money, total_years, rate);
+//                System.out.println(((AverageCaptial) loan2).getTotalMoney());
+//                break;
+//        }
+        //Intent intent = new Intent(context,ResultActivity.class);
+        Intent intent=new Intent(getActivity(), ResultActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("ways",id1);
+        bundle.putDouble("total_money",money);
+        bundle.putInt("years",total_years);
+        bundle.putDouble("rate",rate);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
-//        /*spinnerID为R.id.xxx*/
-////取得value
-//        public int getSpinnerSelid(View view,int spinnerID){
-//            Spinner sp = view.findViewById(spinnerID);
-//            return ((SpinnerData)sp.getSelectedItem()).GetID();
-//        }
-////取得text
-//        public String getSpinnerSelvalue(View view,Integer spinnerID){
-//            Spinner sp = view.findViewById(spinnerID);
-//            return ((SpinnerData)sp.getSelectedItem()).GetValue();
-//        }
-
-
 }
