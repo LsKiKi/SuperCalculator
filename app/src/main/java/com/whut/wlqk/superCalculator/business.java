@@ -23,7 +23,7 @@ public class business extends Fragment {
     Spinner back_way, year_num;
     Button btn;
     double default_rate, default_times = 1.0;
-    double rate_, times_ = default_times;
+    double rate_rt, times_rt = default_times;
 
     @Override
 
@@ -57,10 +57,10 @@ public class business extends Fragment {
          * 声明ArrayAdapter、填充数据、并绑定到组件中
          * 使用自定义 Spinner 样式
          */
-        final ArrayAdapter<String> back_way_adapter = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
+        final ArrayAdapter<String> back_way_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
         back_way_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
         back_way.setAdapter(back_way_adapter);
-        final ArrayAdapter<String> year_num_adapter = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
+        final ArrayAdapter<String> year_num_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
         year_num_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
         year_num.setAdapter(year_num_adapter);
 
@@ -111,7 +111,7 @@ public class business extends Fragment {
                 } else if (pre_year > 1) {
                     default_rate = 4.75;
                 }
-                rate_ = default_rate;
+                rate_rt = default_rate;
 
                 /*
                  * 修改提示语句、基准利率、准确利率
@@ -119,7 +119,7 @@ public class business extends Fragment {
                 tips.setText(String.format(view.getResources().getString(R.string.business_tip), default_rate));
                 base_rate.setText(String.valueOf(default_rate));
                 base_rate.setHint(String.valueOf(default_rate));
-                real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_ / 100));
+                real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_rt / 100));
 
             }
 
@@ -150,8 +150,8 @@ public class business extends Fragment {
                  * 若为空，使用默认利率
                  */
                 if (str.isEmpty()) {
-                    real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_ / 100));
-                    rate_ = default_rate;
+                    real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_rt / 100));
+                    rate_rt = default_rate;
                 }
                 /*
                  * 若非空，使用输入的利率
@@ -165,8 +165,8 @@ public class business extends Fragment {
                         s.delete(index - 1, index);
                         str = s.toString();
                     }
-                    rate_ = Double.parseDouble(str);
-                    real_rate.setText(new DecimalFormat("#.####%").format(rate_ * times_ / 100));
+                    rate_rt = Double.parseDouble(str);
+                    real_rate.setText(new DecimalFormat("#.####%").format(rate_rt * times_rt / 100));
                 }
             }
         });
@@ -193,8 +193,8 @@ public class business extends Fragment {
                  * 若为空，使用默认倍数
                  */
                 if (str.isEmpty()) {
-                    real_rate.setText(new DecimalFormat("#.####%").format(rate_ * default_times / 100));
-                    times_ = default_times;
+                    real_rate.setText(new DecimalFormat("#.####%").format(rate_rt * default_times / 100));
+                    times_rt = default_times;
                 }
                 /*
                  * 若非空，使用输入的倍数
@@ -208,8 +208,8 @@ public class business extends Fragment {
                         s.delete(index - 1, index);
                         str = s.toString();
                     }
-                    times_ = Double.parseDouble(str);
-                    real_rate.setText(new DecimalFormat("#.####%").format(rate_ * times_ / 100));
+                    times_rt = Double.parseDouble(str);
+                    real_rate.setText(new DecimalFormat("#.####%").format(rate_rt * times_rt / 100));
                 }
             }
         });

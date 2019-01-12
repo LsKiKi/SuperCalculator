@@ -34,4 +34,16 @@
     <string name="rate">贷款利率</string>
     <string name="start_compute_business_loan">开始计算</string>
     <string name="business_tip">当前年限基准利率:商业%.2f%%</string>
+    <string name="c_tips">当前年限基准利率:商业%.2f%%,公积金%.2f%%</string>
+    <string name="c_business_name">商业贷款</string>
+    <string name="c_business_rate">商业利率</string>
+    <string name="c_business_times">1.0</string>
+    <string name="c_input_business">请输入商业贷款总额</string>
+    <string name="unit_wan">万</string>
+    <string name="other_bei">倍 =</string>
+    <string name="c_fund_name">公积金贷款</string>
+    <string name="c_input_fund">请输入公积金贷款总额</string>
+    <string name="other_cheng">% ×</string>
+    <string name="c_fund_rate">公积金利率</string>
+    <string name="default_times">1.0</string>
 </resources>
