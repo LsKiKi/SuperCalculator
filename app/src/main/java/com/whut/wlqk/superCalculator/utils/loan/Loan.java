@@ -6,11 +6,12 @@ public class Loan {
     int monthNum; //还款月数
     double rate;  //贷款利率 商业4.9 公积金3.25
     protected double monthRate;
+
     public Loan(double amountOwed, int monthNum, double rate) {
         this.amountOwed = amountOwed;
         this.monthNum = monthNum;
         this.rate = rate;
-        this.monthRate = rate/12;
+        this.monthRate = rate / 12;
     }
 
     public double getAmountOwed() {
@@ -35,6 +36,6 @@ public class Loan {
 
     public void setRate(double rate) {
         this.rate = rate;
-        this.monthRate = rate/12;
+        this.monthRate = rate / 12;
     }
 }

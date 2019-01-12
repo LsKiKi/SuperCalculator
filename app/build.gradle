@@ -20,6 +20,7 @@ android {
     lintOptions {
         disable 'GoogleAppIndexingWarning'
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
