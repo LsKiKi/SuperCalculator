@@ -20,6 +20,10 @@ public class Wuxianyijin {
         this.publicfunds = publicfunds;
     }
 
+    public Wuxianyijin(){
+        super();
+    }
+
     public String getCity() {
         return city;
     }
@@ -75,7 +79,6 @@ public class Wuxianyijin {
     public void setPublicfunds(double publicfunds) {
         this.publicfunds = publicfunds;
     }
-
 
 
 }
