@@ -60,7 +60,8 @@
                     android:id="@+id/business_back_way"
                     android:layout_width="275dp"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:spinnerMode="dialog" />
 
             </LinearLayout>
 
@@ -114,10 +115,10 @@
                         android:id="@+id/business_base_rate"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
+                        android:layout_weight="0.7"
                         android:background="@null"
                         android:ems="10"
-                        android:gravity="center_horizontal"
+                        android:gravity="center"
                         android:inputType="numberDecimal"
                         tools:ignore="NestedWeights" />
 
@@ -126,6 +127,7 @@
                         android:layout_width="25dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
+                        android:gravity="center"
                         android:text="@string/other_cheng" />
 
                     <EditText
@@ -135,15 +137,16 @@
                         android:layout_weight="0.7"
                         android:background="@null"
                         android:ems="10"
-                        android:gravity="center_horizontal"
+                        android:gravity="center"
                         android:hint="@string/default_times"
                         android:inputType="numberDecimal" />
 
                     <TextView
                         android:id="@+id/textView15"
-                        android:layout_width="50dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
+                        android:gravity="center"
                         android:text="@string/other_bei" />
 
                     <TextView
@@ -151,7 +154,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:maxLines="1"
                         android:textColor="@android:color/background_dark"
                         android:textSize="24sp"
@@ -180,7 +183,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/radius"
-                android:text="@string/start_compute_business_loan" />
+                android:text="@string/start_compute"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
 

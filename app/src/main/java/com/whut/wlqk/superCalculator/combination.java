@@ -160,7 +160,7 @@ public class combination extends Fragment {
                  */
                 if (!str.isEmpty()) {
                     fund_loan.setTextSize(30);
-                    business_loan.getPaint().setFakeBoldText(true);
+                    fund_loan.getPaint().setFakeBoldText(true);
                 } else {
                     fund_loan.setTextSize(20);
                     fund_loan.getPaint().setFakeBoldText(false);

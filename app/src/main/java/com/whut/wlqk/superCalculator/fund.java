@@ -27,7 +27,7 @@ import java.text.DecimalFormat;
 public class fund extends Fragment implements View.OnClickListener {
 
 
-    Spinner back_way,year_num;
+    Spinner back_way, year_num;
     EditText total_loan, base_rate, times;
     TextView real_rate, tips;
     int id1, id3, total_years;
@@ -71,8 +71,8 @@ public class fund extends Fragment implements View.OnClickListener {
          * 声明ArrayAdapter、填充数据、并绑定到组件中
          * 使用自定义 Spinner 样式
          */
-        ArrayAdapter<String> back_way_adapter = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
-        ArrayAdapter<String> year_num_adapter = new ArrayAdapter<String>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
+        ArrayAdapter<String> back_way_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
+        ArrayAdapter<String> year_num_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
 
         back_way_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
         back_way.setAdapter(back_way_adapter);
@@ -135,17 +135,12 @@ public class fund extends Fragment implements View.OnClickListener {
                  * 根据选择的年份判断基本利率
                  */
                 int pre_year = Integer.parseInt(year_num_mItems[position]);
-                default_rate = 4.35;
-                if (pre_year > 5) {
-                    default_rate = 4.9;
-                } else if (pre_year > 1) {
-                    default_rate = 4.75;
-                }
-                rate_ = default_rate;
+                default_rate = pre_year > 5 ? 3.25 : 2.75;
+
                 /*
                  * 修改提示语句、基准利率、准确利率
                  */
-                tips.setText(String.format(view.getResources().getString(R.string.business_tip), default_rate));
+                tips.setText(String.format(view.getResources().getString(R.string.fund_tip), default_rate));
                 base_rate.setText(String.valueOf(default_rate));
                 base_rate.setHint(String.valueOf(default_rate));
                 real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_ / 100));
