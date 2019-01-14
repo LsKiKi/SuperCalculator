@@ -358,6 +358,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:background="@drawable/radius"
+                    android:textColor="@android:color/white"
                     android:text="@string/start_compute" />
             </LinearLayout>
         </LinearLayout>

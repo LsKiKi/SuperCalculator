@@ -54,7 +54,7 @@
     <string name="input_mSalary">请输入您的月收入</string>
     <string name="income_num">收入金额</string>
     <string name="inhabit_city">所在城市</string>
-    <string name="str_income_tax_threshold_">个税起征点</string>
+    <string name="str_income_tax_threshold_">起征点</string>
     <string name="str_income_tax">5000</string>
     <string name="str_ihf">五险一金</string>
     <string name="str_fund">公积金</string>
