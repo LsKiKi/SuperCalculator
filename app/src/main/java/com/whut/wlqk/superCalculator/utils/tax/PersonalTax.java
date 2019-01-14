@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by 84074 on 2019/1/9.
  */
 public class PersonalTax implements TaxInterface {
-    double rawMoney;
+    double rawMoney; //扣除五险一金后
     double base;
     //2018 旧税表
     Map<Character, ArrayList<Double>> rateTable = new HashMap<Character, ArrayList<Double>>() {

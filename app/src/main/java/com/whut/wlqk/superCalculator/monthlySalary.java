@@ -8,16 +8,23 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.whut.wlqk.superCalculator.utils.tax.DbHelper;
+import com.whut.wlqk.superCalculator.utils.tax.Wuxianyijin;
+
+import java.util.List;
+
 public class monthlySalary extends Fragment {
     TextView insurance_housing_fund;
     LinearLayout layout;
     boolean inf_visible = false;
-
+    DbHelper dbHelper = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.monthlysalary, container, false);
+        dbHelper = new DbHelper(this.getContext());
+        dbHelper.openRead();
         init(view);
         return view;
     }
@@ -34,5 +41,23 @@ public class monthlySalary extends Fragment {
             }
         });
     }
+
+    /**
+     * 所有城市名
+     * @return
+     */
+    private List<String> cityData(){
+        return dbHelper.queryAll();
+    }
+
+    /**
+     * 查询相应城市五险一金数据
+     * @param city
+     * @return
+     */
+    private Wuxianyijin queryByCity(String city){
+        return dbHelper.queryByCity(city);
+    }
+
 
 }
