@@ -259,6 +259,7 @@ public class fund extends Fragment implements View.OnClickListener {
         //Intent intent = new Intent(context,ResultActivity.class);
         Intent intent=new Intent(getActivity(), ResultActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putInt("type", 1);
         bundle.putInt("ways",id1);
         bundle.putDouble("total_money",money);
         bundle.putInt("years",total_years);

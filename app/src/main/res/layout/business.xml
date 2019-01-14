@@ -81,7 +81,7 @@
                     android:textSize="18sp" />
 
                 <Spinner
-                    android:id="@+id/business_year_num"
+                    android:id="@+id/spinner_city"
                     android:layout_width="275dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|clip_vertical"

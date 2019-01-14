@@ -1,5 +1,6 @@
 package com.whut.wlqk.superCalculator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -17,7 +18,7 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 
 
-public class combination extends Fragment {
+public class combination extends Fragment implements View.OnClickListener {
     EditText business_loan, business_rate, business_times, fund_loan, fund_rate, fund_times;
     Spinner back_way, year_num;
     TextView business_real_rate, fund_real_rate, tips;
@@ -49,6 +50,8 @@ public class combination extends Fragment {
         year_num = view.findViewById(R.id.c_year_num);
         tips = view.findViewById(R.id.c_tips);
         btn = view.findViewById(R.id.c_btn_start_compute);
+
+        btn.setOnClickListener(this);
 
         /*
          * 在xml资源中加载数据
@@ -338,6 +341,25 @@ public class combination extends Fragment {
                 }
             }
         });
+
     }
 
+    @Override
+    public void onClick(View view) {
+        double money = Double.parseDouble(business_loan.getText().toString()) * 10000;
+        double rate = Double.parseDouble(business_real_rate.getText().toString().split("%")[0]) / 100;
+        double money_2 = Double.parseDouble(fund_loan.getText().toString()) * 10000;
+        double rate_2 = Double.parseDouble(fund_real_rate.getText().toString().split("%")[0]) / 100;
+        Intent intent = new Intent(getActivity(), ResultActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", 2);
+        bundle.putInt("ways", back_way.getSelectedItemPosition() + 1);
+        bundle.putDouble("total_money", money);
+        bundle.putInt("years", year_num.getSelectedItemPosition() + 1);
+        bundle.putDouble("rate", rate);
+        bundle.putDouble("total_money_2", money_2);
+        bundle.putDouble("rate_2", rate_2);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

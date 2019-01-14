@@ -1,5 +1,6 @@
 package com.whut.wlqk.superCalculator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -17,7 +18,7 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 
 
-public class business extends Fragment {
+public class business extends Fragment implements View.OnClickListener {
     EditText total_loan, base_rate, times;
     TextView real_rate, tips;
     Spinner back_way, year_num;
@@ -44,7 +45,7 @@ public class business extends Fragment {
         real_rate = view.findViewById(R.id.business_real_rate);
         tips = view.findViewById(R.id.business_tips);
         back_way = view.findViewById(R.id.business_back_way);
-        year_num = view.findViewById(R.id.business_year_num);
+        year_num = view.findViewById(R.id.spinner_city);
         btn = view.findViewById(R.id.btn_start_compute_business_loan);
 
         /*
@@ -213,7 +214,23 @@ public class business extends Fragment {
                 }
             }
         });
+        btn.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        double money = Double.parseDouble(total_loan.getText().toString()) * 10000;
+        double rate = Double.parseDouble(real_rate.getText().toString().split("%")[0]) / 100;
+        Intent intent = new Intent(getActivity(), ResultActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", 1);
+        bundle.putInt("ways", back_way.getSelectedItemPosition() + 1);
+        bundle.putDouble("total_money", money);
+        bundle.putInt("years", year_num.getSelectedItemPosition() + 1);
+        bundle.putDouble("rate", rate);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 }

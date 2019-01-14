@@ -50,7 +50,7 @@
                         android:orientation="horizontal">
 
                         <EditText
-                            android:id="@+id/business_total_loan2"
+                            android:id="@+id/input_salary"
                             android:layout_width="0dp"
                             android:layout_height="75dp"
                             android:layout_weight="7"
@@ -88,7 +88,7 @@
                     android:textSize="18sp" />
 
                 <Spinner
-                    android:id="@+id/business_year_num"
+                    android:id="@+id/spinner_city"
                     android:layout_width="275dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|clip_vertical"
@@ -112,7 +112,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editText"
+                    android:id="@+id/input_threshold"
                     android:layout_width="275dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -168,7 +168,7 @@
                         android:textColor="@android:color/black" />
 
                     <EditText
-                        android:id="@+id/editText2"
+                        android:id="@+id/et_fund"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -200,7 +200,7 @@
                         android:textColor="@android:color/black" />
 
                     <EditText
-                        android:id="@+id/editText3"
+                        android:id="@+id/et_medical"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -232,7 +232,7 @@
                         android:textColor="@android:color/black" />
 
                     <EditText
-                        android:id="@+id/editText4"
+                        android:id="@+id/et_endowment"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -264,7 +264,7 @@
                         android:textColor="@android:color/black" />
 
                     <EditText
-                        android:id="@+id/editText5"
+                        android:id="@+id/et_unemployment"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -296,7 +296,7 @@
                         android:textColor="@android:color/black" />
 
                     <EditText
-                        android:id="@+id/editText6"
+                        android:id="@+id/et_employment_injury"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -328,7 +328,7 @@
                         android:textColor="@android:color/black" />
 
                     <EditText
-                        android:id="@+id/editText7"
+                        android:id="@+id/et_maternity"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
