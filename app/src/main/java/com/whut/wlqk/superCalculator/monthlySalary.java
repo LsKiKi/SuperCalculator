@@ -1,5 +1,6 @@
 package com.whut.wlqk.superCalculator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -18,13 +20,15 @@ import com.whut.wlqk.superCalculator.utils.tax.Wuxianyijin;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class monthlySalary extends Fragment {
+public class monthlySalary extends Fragment implements View.OnClickListener{
+
     TextView insurance_housing_fund;
     LinearLayout layout;
     Spinner spinner_city;
     EditText input_salary, et_threshold, et_fund, et_medical, et_endowment, et_unemployment, et_employment_injury, et_maternity;
     boolean inf_visible = false;
     DbHelper dbHelper = null;
+    Button compute;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +61,7 @@ public class monthlySalary extends Fragment {
         spinner_city = view.findViewById(R.id.spinner_city);
         input_salary = view.findViewById(R.id.input_salary);
         et_threshold = view.findViewById(R.id.input_threshold);
+        compute = view.findViewById(R.id.btn_start_compute2);
 
         final ArrayAdapter<String> city_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, cityData());
         city_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
@@ -80,7 +85,8 @@ public class monthlySalary extends Fragment {
             }
         });
 
-
+        //按钮设置监听
+        compute.setOnClickListener(this);
 
     }
 
@@ -104,4 +110,15 @@ public class monthlySalary extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        double income = Double.parseDouble(input_salary.toString());
+        double threshold = Double.parseDouble(et_threshold.toString());
+        Intent intent = new Intent(getActivity(),PersonActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putDouble("income",income);
+        bundle.putDouble("threshold",threshold);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

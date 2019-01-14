@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".PersonActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,7 +44,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/tax_before_incom"
+                android:id="@+id/tax_before_income"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
