@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.whut.wlqk.superCalculator.utils.tax.DbHelper;
+import com.whut.wlqk.superCalculator.utils.tax.Wuxianyijin;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,6 +46,16 @@ public class ExampleInstrumentedTest {
         for(int i=0;i<list2.size();i++){
             System.out.println(list2.get(i));
         }
+        dbHelper.close();
+    }
+
+    @Test
+    public void queryByCicy(){
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        DbHelper dbHelper = new DbHelper(appContext);
+        dbHelper.openRead();
+        Wuxianyijin wuxianyijin = dbHelper.queryByCity("武汉");
+        System.out.println(wuxianyijin.getCity()+wuxianyijin.getUnempliyed()+wuxianyijin.getProcreation()+wuxianyijin.getOldCare()+wuxianyijin.getMedicalTreatment());
         dbHelper.close();
     }
 }

@@ -30,7 +30,7 @@ public class fund extends Fragment implements View.OnClickListener {
     Spinner back_way, year_num;
     EditText total_loan, base_rate, times;
     TextView real_rate, tips;
-    int id1, id3, total_years;
+    int id1, total_years;
     Button admit;
     double default_rate, default_times = 1.0;
     double rate_, times_ = default_times;
@@ -243,7 +243,7 @@ public class fund extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        double money = Double.parseDouble(total_loan.getText().toString());
+        double money = Double.parseDouble(total_loan.getText().toString())*10000;
         double rate = Double.parseDouble(real_rate.getText().toString().split("%")[0]) / 100;
         System.out.println(money);
 //        switch (id1) {

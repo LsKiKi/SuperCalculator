@@ -64,7 +64,8 @@
                         android:id="@+id/fund_back_way"
                         android:layout_width="275dp"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"/>
+                        android:gravity="center_vertical"
+                        android:spinnerMode="dialog" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -155,7 +156,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:textColor="@android:color/background_dark"
-                            android:textSize="24sp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>

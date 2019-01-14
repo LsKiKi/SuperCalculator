@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 
@@ -20,30 +19,22 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String TAG = "DbHelper";
     private static final String DB_NAME = "city.db";
     private static final int DB_VERSION = 1;
-    private static DbHelper dbHelper = null;
+    //private static DbHelper dbHelper = null;
     private SQLiteDatabase db = null;
-    private String path = null;
+    private String path;
 
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         CopySqliteFileFromRawToDatabases(context);
-        path = context.getFilesDir().getParent()+"/databases/city.db";
+        path = context.getFilesDir().getParent() + "/databases/city.db";
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        String sql = "CREATE TABLE main.wuxianyijin(city TEXT NOT NULL ,oldcare REAL,medicaltreatment REAL," +
-//                "unemployed  REAL, injury REAL, procreation REAL, publicfunds REAL ," +
-//                "PRIMARY KEY (city))";
-//        Log.d(TAG, "create table");
-//        db.execSQL(sql);
-        System.out.println("BBBBBBBBBBB"+path);
-        db.openDatabase(path, null,SQLiteDatabase.OPEN_READONLY);
-        System.out.println("BBBBBBBBBBB");
-        System.out.println("BBBBBBBBBBB"+db.toString());
+        db.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
     }
 
-    public void CopySqliteFileFromRawToDatabases(Context context) {
+    private void CopySqliteFileFromRawToDatabases(Context context) {
 
         // 第一次运行应用程序时，加载数据库到data/data/当前包的名称/database/<db_name>
         File files = context.getFilesDir(); //目录
@@ -52,7 +43,6 @@ public class DbHelper extends SQLiteOpenHelper {
         Log.i(TAG, "!dir.isDirectory()=" + !dir.isDirectory());
         if (!dir.exists()) dir.mkdirs();
         File file = new File(dir, "city.db");
-        System.out.println("AAAAAAAA");
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
 
@@ -77,8 +67,8 @@ public class DbHelper extends SQLiteOpenHelper {
                 inputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
-                }
             }
+        }
     }
 
     @Override
@@ -105,8 +95,6 @@ public class DbHelper extends SQLiteOpenHelper {
         ArrayList<String> list = new ArrayList<String>();
         Cursor cursor = db.rawQuery(sql, null);
         Log.d(TAG, "queryAll");
-       // System.out.println(cursor.getString(0));
-        System.out.println("CCCCCCCCCC");
         if (cursor.moveToFirst()) {
             for (; ; cursor.moveToNext()) {
 
@@ -123,9 +111,10 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
     public Wuxianyijin queryByCity(String city) {
-        String sql = String.format("select * from wuxianyijin where city=%s", city);
+        //String sql = String.format("select * from wuxianyijin where city='%s'", city);
         Wuxianyijin wuxianyijin = new Wuxianyijin();
-        Cursor cursor = db.rawQuery(sql, null);
+        Cursor cursor = db.query("wuxianyijin", null, "city=?", new String[]{city},
+                null, null, null);
         Log.d(TAG, "queryByCity" + city);
         if (cursor.moveToFirst()) {
             for (; ; cursor.moveToNext()) {

@@ -25,6 +25,8 @@ public class AverageCaptialPlusInterest extends Loan implements LoanInterface {
     @Override
     public double getMonthlyMoney() {
         double result;
+        if (rate==0.0)  //利率为零？？？？？？
+            return amountOwed/monthNum;
         result = (amountOwed * monthRate * Math.pow(1 + monthRate, monthNum)) / (Math.pow(1 + monthRate, monthNum) - 1);
         // 每月还款金额 = [总贷款 × 月利率 × (1 + 月利率)^总月数] ÷ [(1 + 月利率)^总月数 - 1]
         return result;
