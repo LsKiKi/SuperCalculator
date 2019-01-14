@@ -16,15 +16,15 @@ public class CalWuxianyijin {
     Wuxianyijin wuxianyijin;
     double raw;
 
-    public CalWuxianyijin(Wuxianyijin wuxianyijin, double raw){
+    public CalWuxianyijin(Wuxianyijin wuxianyijin, double raw) {
         this.wuxianyijin = wuxianyijin;
         this.raw = raw;
-        this.injuryMoney = wuxianyijin.getInjury()*raw;
-        this.medicalTreatmentMoney = wuxianyijin.getMedicalTreatment()*raw;
-        this.oldCareMoney = wuxianyijin.getOldCare()*raw;
-        this.procreationMoney = wuxianyijin.getProcreation()*raw;
-        this.unemployedMoney = wuxianyijin.getUnempliyed()*raw;
-        this.publicFundsMoney = wuxianyijin.getPublicfunds()*raw;
+        this.injuryMoney = wuxianyijin.getInjury() * raw;
+        this.medicalTreatmentMoney = wuxianyijin.getMedicalTreatment() * raw;
+        this.oldCareMoney = wuxianyijin.getOldCare() * raw;
+        this.procreationMoney = wuxianyijin.getProcreation() * raw;
+        this.unemployedMoney = wuxianyijin.getUnempliyed() * raw;
+        this.publicFundsMoney = wuxianyijin.getPublicfunds() * raw;
     }
 
 
@@ -93,7 +93,7 @@ public class CalWuxianyijin {
     }
 
     public double wuxianyijinTotal() {
-        return injuryMoney+medicalTreatmentMoney+oldCareMoney+procreationMoney+unemployedMoney+publicFundsMoney;
+        return injuryMoney + medicalTreatmentMoney + oldCareMoney + procreationMoney + unemployedMoney + publicFundsMoney;
     }
 }
 

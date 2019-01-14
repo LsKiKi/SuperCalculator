@@ -44,18 +44,20 @@ public class monthlySalary extends Fragment {
 
     /**
      * 所有城市名
+     *
      * @return
      */
-    private List<String> cityData(){
+    private List<String> cityData() {
         return dbHelper.queryAll();
     }
 
     /**
      * 查询相应城市五险一金数据
+     *
      * @param city
      * @return
      */
-    private Wuxianyijin queryByCity(String city){
+    private Wuxianyijin queryByCity(String city) {
         return dbHelper.queryByCity(city);
     }
 
