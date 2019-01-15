@@ -45,14 +45,14 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/business_total_loan2"
+                        android:id="@+id/total_annual"
                         android:layout_width="0dp"
                         android:layout_height="75dp"
                         android:layout_weight="7"
                         android:background="@null"
                         android:ems="10"
                         android:hint="@string/input_annualbonus"
-                        android:inputType="numberDecimal"
+                        android:inputType="number"
                         android:textSize="24sp" />
 
                     <TextView

@@ -57,7 +57,7 @@
                             android:background="@null"
                             android:ems="10"
                             android:hint="@string/input_mSalary"
-                            android:inputType="numberDecimal"
+                            android:inputType="number"
                             android:textSize="24sp" />
 
                         <TextView
@@ -119,7 +119,7 @@
                     android:ems="10"
                     android:gravity="center"
                     android:hint="@string/str_income_tax"
-                    android:inputType="numberDecimal"
+                    android:inputType="number"
                     android:textSize="24sp" />
             </LinearLayout>
 
