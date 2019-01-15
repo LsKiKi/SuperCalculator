@@ -68,7 +68,7 @@ public class PersonActivity extends BaseActivity{
 
         //个人所得税
         person_get_tax = taxInterface.result();
-        person_tax.setText(String.valueOf(person_get_tax));
+        person_tax.setText(new DecimalFormat("#.##").format(person_get_tax));
 
         //到手所得
         total_get.setText(new DecimalFormat("#.##").format(income-person_get_tax));
