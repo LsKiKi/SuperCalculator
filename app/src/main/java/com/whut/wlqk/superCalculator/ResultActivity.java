@@ -2,6 +2,7 @@ package com.whut.wlqk.superCalculator;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.whut.wlqk.superCalculator.utils.loan.AverageCaptial;
@@ -28,7 +29,6 @@ public class ResultActivity extends BaseActivity {
         pay_total_money = findViewById(R.id.pay_total_money);//还款总额
         loan_total_money = findViewById(R.id.loan_total_money);//贷款总额
         pay_years = findViewById(R.id.loan_year_num);//按揭年数
-        per_month_pay = findViewById(R.id.per_month_money);//每月还款额
         per_month_sub = findViewById(R.id.per_month_sub);//每月递减额
         pay_method = findViewById(R.id.pay_method);
 
@@ -59,7 +59,7 @@ public class ResultActivity extends BaseActivity {
                 f_p_m = p_m_p;
                 p_m_s = 0;
                 pay_method.setText("每月还款");
-                per_month_pay.setText(new DecimalFormat("#.##").format(p_m_p));
+                findViewById(R.id.per_sub).setVisibility(View.GONE);
                 break;
             case 2:
                 //等额本金

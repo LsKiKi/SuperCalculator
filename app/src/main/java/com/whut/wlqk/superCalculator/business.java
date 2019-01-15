@@ -279,13 +279,13 @@ public class business extends Fragment {
     public void btn_click(View view) {
         try {
             double money = Double.parseDouble(total_loan.getText().toString()) * 10000;
-            double rate = rate_rt;
+            double rate = rate_rt / 100;
             Intent intent = new Intent(getActivity(), ResultActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt("type", 1);
             bundle.putInt("ways", back_way.getSelectedItemPosition() + 1);
             bundle.putDouble("total_money", money);
-            bundle.putInt("years", year_num.getSelectedItemPosition() + 1);
+            bundle.putInt("years", Integer.parseInt(String.valueOf(year_num.getSelectedItem())));
             bundle.putDouble("rate", rate);
             intent.putExtras(bundle);
             startActivity(intent);
