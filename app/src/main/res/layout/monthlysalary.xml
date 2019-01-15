@@ -142,6 +142,7 @@
                     android:id="@+id/textView23"
                     android:layout_width="275dp"
                     android:layout_height="match_parent"
+                    android:background="@drawable/down"
                     android:gravity="center_vertical|end" />
             </LinearLayout>
 

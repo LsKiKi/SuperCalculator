@@ -20,7 +20,7 @@ import com.whut.wlqk.superCalculator.utils.tax.Wuxianyijin;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class monthlySalary extends Fragment implements View.OnClickListener{
+public class monthlySalary extends Fragment implements View.OnClickListener {
 
     TextView insurance_housing_fund;
     LinearLayout layout;
@@ -48,7 +48,13 @@ public class monthlySalary extends Fragment implements View.OnClickListener{
         insurance_housing_fund.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                layout.setVisibility(inf_visible ? View.GONE : View.VISIBLE);
+                if (inf_visible) {
+                    layout.setVisibility(View.GONE);
+                    insurance_housing_fund.setBackground(getResources().getDrawable(R.drawable.down));
+                } else {
+                    layout.setVisibility(View.VISIBLE);
+                    insurance_housing_fund.setBackground(getResources().getDrawable(R.drawable.up));
+                }
                 inf_visible = !inf_visible;
             }
         });
@@ -116,30 +122,30 @@ public class monthlySalary extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         double threshold;
         double income = Double.parseDouble(input_salary.getText().toString());
-        if(et_threshold.getText().toString().equals("")){
+        if (et_threshold.getText().toString().equals("")) {
             threshold = 5000;
-        }else {
+        } else {
             threshold = Double.parseDouble(et_threshold.getText().toString());
         }
-        double fund = Double.parseDouble(et_fund.getText().toString())/100;
-        double medical = Double.parseDouble(et_medical.getText().toString())/100;
-        double endowment = Double.parseDouble(et_endowment.getText().toString())/100;
-        double unemployment = Double.parseDouble(et_unemployment.getText().toString())/100;
-        double maternity = Double.parseDouble(et_maternity.getText().toString())/100;
-        double employment_injury = Double.parseDouble(et_employment_injury.getText().toString())/100;
+        double fund = Double.parseDouble(et_fund.getText().toString()) / 100;
+        double medical = Double.parseDouble(et_medical.getText().toString()) / 100;
+        double endowment = Double.parseDouble(et_endowment.getText().toString()) / 100;
+        double unemployment = Double.parseDouble(et_unemployment.getText().toString()) / 100;
+        double maternity = Double.parseDouble(et_maternity.getText().toString()) / 100;
+        double employment_injury = Double.parseDouble(et_employment_injury.getText().toString()) / 100;
 
-        Intent intent = new Intent(getActivity(),PersonActivity.class);
+        Intent intent = new Intent(getActivity(), PersonActivity.class);
         Bundle bundle = new Bundle();
 
-        bundle.putDouble("income",income);
-        bundle.putDouble("threshold",threshold);
-        bundle.putDouble("fund",fund);
-        bundle.putDouble("medical",medical);
-        bundle.putDouble("endowment",endowment);
-        bundle.putDouble("unemployment",unemployment);
-        bundle.putDouble("maternity",maternity);
-        bundle.putDouble("employment_injury",employment_injury);
-        bundle.putString("city",city);
+        bundle.putDouble("income", income);
+        bundle.putDouble("threshold", threshold);
+        bundle.putDouble("fund", fund);
+        bundle.putDouble("medical", medical);
+        bundle.putDouble("endowment", endowment);
+        bundle.putDouble("unemployment", unemployment);
+        bundle.putDouble("maternity", maternity);
+        bundle.putDouble("employment_injury", employment_injury);
+        bundle.putString("city", city);
 
         intent.putExtras(bundle);
         startActivity(intent);

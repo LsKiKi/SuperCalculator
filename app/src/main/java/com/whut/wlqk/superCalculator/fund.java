@@ -1,6 +1,5 @@
 package com.whut.wlqk.superCalculator;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,24 +15,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.whut.wlqk.superCalculator.utils.loan.AverageCaptial;
-import com.whut.wlqk.superCalculator.utils.loan.AverageCaptialPlusInterest;
-import com.whut.wlqk.superCalculator.utils.loan.Loan;
-
-import java.io.Serializable;
 import java.text.DecimalFormat;
 
 
-public class fund extends Fragment implements View.OnClickListener {
+public class fund extends Fragment {
 
 
     Spinner back_way, year_num;
     EditText total_loan, base_rate, times;
     TextView real_rate, tips;
-    int id1, total_years;
     Button admit;
     double default_rate, default_times = 1.0;
-    double rate_, times_ = default_times;
+    double rate_rt, times_rt = default_times;
 
     public fund() {
         // Required empty public constructor
@@ -50,6 +43,29 @@ public class fund extends Fragment implements View.OnClickListener {
 
     private void init(View view) {
 
+        /*
+         * 查找绑定资源
+         */
+        bind_view(view);
+
+
+        /*
+         *在xml中加载数据
+         */
+        padding_data(view);
+
+        /*
+         * 添加监听
+         */
+        add_listener();
+    }
+
+    /**
+     * bind view with layout
+     *
+     * @param view parent
+     */
+    private void bind_view(View view) {
         total_loan = view.findViewById(R.id.money);
         admit = view.findViewById(R.id.admit);
         base_rate = view.findViewById(R.id.fund_base_rate);
@@ -58,11 +74,16 @@ public class fund extends Fragment implements View.OnClickListener {
         tips = view.findViewById(R.id.fund_tips);
         back_way = view.findViewById(R.id.fund_back_way);
         year_num = view.findViewById(R.id.fund_year_num);
+    }
 
-
-
+    /**
+     * padding data from xml resource
+     *
+     * @param view parent
+     */
+    private void padding_data(View view) {
         /*
-         *在xml资料中加载数据
+         * 在xml资源中加载数据
          */
         final String[] back_way_mItems = getResources().getStringArray(R.array.back_ways);
         final String[] year_num_mItems = getResources().getStringArray(R.array.year);
@@ -71,14 +92,72 @@ public class fund extends Fragment implements View.OnClickListener {
          * 声明ArrayAdapter、填充数据、并绑定到组件中
          * 使用自定义 Spinner 样式
          */
-        ArrayAdapter<String> back_way_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
-        ArrayAdapter<String> year_num_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
-
+        final ArrayAdapter<String> back_way_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, back_way_mItems);
         back_way_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
         back_way.setAdapter(back_way_adapter);
+        final ArrayAdapter<String> year_num_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
         year_num_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
         year_num.setAdapter(year_num_adapter);
+    }
 
+    /**
+     * edit text event
+     *
+     * @param s        editable
+     * @param df_value default value
+     * @param pointer  mouse pointer
+     * @return real time value
+     */
+    private double et_change(Editable s, double df_value, int pointer, int precision) {
+        double rt_value;
+        String str = s.toString();
+        /*
+         * 若为空，使用默认值
+         */
+        if (str.isEmpty()) {
+            rt_value = df_value;
+        }
+        /*
+         * 若存在小数点
+         */
+        else {
+            if (str.indexOf('.') != -1) {
+                /*
+                 * 最多两位小数，若多于两位小数则无视本次输入
+                 */
+                if (str.indexOf('.') < str.length() - precision - 1) {
+                    s.delete(pointer - 1, pointer);
+                } else
+                    /*
+                     * 若第一个字符为小数点
+                     */
+                    if (str.equals(".")) {
+                        s.insert(0, "0");
+                    }
+            }
+            /*
+             * 0开始的整数
+             */
+            if (str.startsWith("0") && !str.startsWith("0.") && !str.equals("0")) {
+                s.delete(0, 1);
+            }
+            str = s.toString();
+            rt_value = Double.parseDouble(str);
+        }
+        return rt_value;
+    }
+
+    /**
+     * update real time rate
+     */
+    private void update_real_rate() {
+        real_rate.setText(new DecimalFormat("#.####%").format(rate_rt * times_rt / 100));
+    }
+
+    /**
+     * add listen to view
+     */
+    private void add_listener(){
         /*
          * 贷款数额 EditText 修改事件
          */
@@ -106,25 +185,11 @@ public class fund extends Fragment implements View.OnClickListener {
                     total_loan.setTextSize(24);
                     total_loan.getPaint().setFakeBoldText(false);
                 }
+                et_change(s, 0, total_loan.getSelectionStart(), 2);
 
             }
         });
 
-        back_way.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                /*
-                 * ids是刚刚新建的list里面的ID
-                 */
-                id1 = position + 1;
-                System.out.println(id1);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-                id1 = 1;
-            }
-        });
 
         /*
          * 年份 Spinner 选中事件
@@ -134,7 +199,7 @@ public class fund extends Fragment implements View.OnClickListener {
                 /*
                  * 根据选择的年份判断基本利率
                  */
-                int pre_year = Integer.parseInt(year_num_mItems[position]);
+                int pre_year = Integer.parseInt(String.valueOf(parent.getItemAtPosition(position)));
                 default_rate = pre_year > 5 ? 3.25 : 2.75;
 
                 /*
@@ -143,15 +208,12 @@ public class fund extends Fragment implements View.OnClickListener {
                 tips.setText(String.format(view.getResources().getString(R.string.fund_tip), default_rate));
                 base_rate.setText(String.valueOf(default_rate));
                 base_rate.setHint(String.valueOf(default_rate));
-                real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_ / 100));
-                total_years = Integer.parseInt(year_num.getSelectedItem().toString());
-                System.out.println(total_years);
+                update_real_rate();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
-                total_years = 1;
             }
         });
 
@@ -171,29 +233,8 @@ public class fund extends Fragment implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String str = s.toString();
-                /*
-                 * 若为空，使用默认利率
-                 */
-                if (str.isEmpty()) {
-                    real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_ / 100));
-                    rate_ = default_rate;
-                }
-                /*
-                 * 若非空，使用输入的利率
-                 */
-                else {
-                    /*
-                     * 最多两位小数，若多于两位小数则无视本次输入
-                     */
-                    if (str.indexOf('.') != -1 && str.indexOf('.') < str.length() - 3) {
-                        int index = base_rate.getSelectionStart();
-                        s.delete(index - 1, index);
-                        str = s.toString();
-                    }
-                    rate_ = Double.parseDouble(str);
-                    real_rate.setText(new DecimalFormat("#.####%").format(rate_ * times_ / 100));
-                }
+                rate_rt = et_change(s, default_rate, base_rate.getSelectionStart(), 2);
+                update_real_rate();
             }
         });
 
@@ -213,57 +254,35 @@ public class fund extends Fragment implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String str = s.toString();
-                /*
-                 * 若为空，使用默认倍数
-                 */
-                if (str.isEmpty()) {
-                    real_rate.setText(new DecimalFormat("#.####%").format(rate_ * default_times / 100));
-                    times_ = default_times;
-                }
-                /*
-                 * 若非空，使用输入的倍数
-                 */
-                else {
-                    /*
-                     * 最多两位小数，若多于两位小数则无视本次输入
-                     */
-                    if (str.indexOf('.') != -1 && str.indexOf('.') < str.length() - 3) {
-                        int index = times.getSelectionStart();
-                        s.delete(index - 1, index);
-                        str = s.toString();
-                    }
-                    times_ = Double.parseDouble(str);
-                    real_rate.setText(new DecimalFormat("#.####%").format(rate_ * times_ / 100));
-                }
+                times_rt = et_change(s, default_times, times.getSelectionStart(), 2);
+                update_real_rate();
             }
         });
-        admit.setOnClickListener(this);
+
+        /*
+         * 计算按钮事件
+         */
+        admit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_click();
+            }
+        });
     }
 
-    @Override
-    public void onClick(View view) {
-        double money = Double.parseDouble(total_loan.getText().toString())*10000;
+    /**
+     * click compute button
+     */
+    public void btn_click() {
+        double money = Double.parseDouble(total_loan.getText().toString()) * 10000;
         double rate = Double.parseDouble(real_rate.getText().toString().split("%")[0]) / 100;
-        System.out.println(money);
-//        switch (id1) {
-//            case 1:
-//                Loan loan1 = new AverageCaptialPlusInterest(money, total_years, rate);
-//                System.out.println(((AverageCaptialPlusInterest) loan1).getTotalMoney());
-//                break;
-//            case 2:
-//                Loan loan2 = new AverageCaptial(money, total_years, rate);
-//                System.out.println(((AverageCaptial) loan2).getTotalMoney());
-//                break;
-//        }
-        //Intent intent = new Intent(context,ResultActivity.class);
-        Intent intent=new Intent(getActivity(), ResultActivity.class);
+        Intent intent = new Intent(getActivity(), ResultActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("type", 1);
-        bundle.putInt("ways",id1);
-        bundle.putDouble("total_money",money);
-        bundle.putInt("years",total_years);
-        bundle.putDouble("rate",rate);
+        bundle.putInt("ways", back_way.getSelectedItemPosition() + 1);
+        bundle.putDouble("total_money", money);
+        bundle.putInt("years", Integer.parseInt(String.valueOf(year_num.getSelectedItem())));
+        bundle.putDouble("rate", rate);
         intent.putExtras(bundle);
         startActivity(intent);
     }
