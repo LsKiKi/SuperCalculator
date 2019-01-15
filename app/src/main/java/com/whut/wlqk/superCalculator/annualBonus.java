@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class annualBonus  extends Fragment implements View.OnClickListener{
     EditText annualbonus;
@@ -33,11 +34,16 @@ public class annualBonus  extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        annualbonus_ = Double.parseDouble(annualbonus.getText().toString());
-        Intent intent = new Intent(getActivity(),AnnualActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putDouble("annualbonus",annualbonus_);
-        intent.putExtras(bundle);
-        startActivity(intent);
+        try {
+            annualbonus_ = Double.parseDouble(annualbonus.getText().toString());
+            Intent intent = new Intent(getActivity(), AnnualActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putDouble("annualbonus", annualbonus_);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            Toast.makeText(v.getContext(), getString(R.string.toast_error), Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.whut.wlqk.superCalculator.utils.tax.DbHelper;
 import com.whut.wlqk.superCalculator.utils.tax.Wuxianyijin;
@@ -120,34 +121,39 @@ public class monthlySalary extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        double threshold;
-        double income = Double.parseDouble(input_salary.getText().toString());
-        if (et_threshold.getText().toString().equals("")) {
-            threshold = 5000;
-        } else {
-            threshold = Double.parseDouble(et_threshold.getText().toString());
+        try {
+            double threshold;
+            double income = Double.parseDouble(input_salary.getText().toString());
+            if (et_threshold.getText().toString().equals("")) {
+                threshold = 5000;
+            } else {
+                threshold = Double.parseDouble(et_threshold.getText().toString());
+            }
+            double fund = Double.parseDouble(et_fund.getText().toString()) / 100;
+            double medical = Double.parseDouble(et_medical.getText().toString()) / 100;
+            double endowment = Double.parseDouble(et_endowment.getText().toString()) / 100;
+            double unemployment = Double.parseDouble(et_unemployment.getText().toString()) / 100;
+            double maternity = Double.parseDouble(et_maternity.getText().toString()) / 100;
+            double employment_injury = Double.parseDouble(et_employment_injury.getText().toString()) / 100;
+
+            Intent intent = new Intent(getActivity(), PersonActivity.class);
+            Bundle bundle = new Bundle();
+
+            bundle.putDouble("income", income);
+            bundle.putDouble("threshold", threshold);
+            bundle.putDouble("fund", fund);
+            bundle.putDouble("medical", medical);
+            bundle.putDouble("endowment", endowment);
+            bundle.putDouble("unemployment", unemployment);
+            bundle.putDouble("maternity", maternity);
+            bundle.putDouble("employment_injury", employment_injury);
+            bundle.putString("city", city);
+
+            intent.putExtras(bundle);
+            startActivity(intent);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Toast.makeText(v.getContext(), getString(R.string.toast_error), Toast.LENGTH_SHORT).show();
         }
-        double fund = Double.parseDouble(et_fund.getText().toString()) / 100;
-        double medical = Double.parseDouble(et_medical.getText().toString()) / 100;
-        double endowment = Double.parseDouble(et_endowment.getText().toString()) / 100;
-        double unemployment = Double.parseDouble(et_unemployment.getText().toString()) / 100;
-        double maternity = Double.parseDouble(et_maternity.getText().toString()) / 100;
-        double employment_injury = Double.parseDouble(et_employment_injury.getText().toString()) / 100;
-
-        Intent intent = new Intent(getActivity(), PersonActivity.class);
-        Bundle bundle = new Bundle();
-
-        bundle.putDouble("income", income);
-        bundle.putDouble("threshold", threshold);
-        bundle.putDouble("fund", fund);
-        bundle.putDouble("medical", medical);
-        bundle.putDouble("endowment", endowment);
-        bundle.putDouble("unemployment", unemployment);
-        bundle.putDouble("maternity", maternity);
-        bundle.putDouble("employment_injury", employment_injury);
-        bundle.putString("city", city);
-
-        intent.putExtras(bundle);
-        startActivity(intent);
     }
 }
