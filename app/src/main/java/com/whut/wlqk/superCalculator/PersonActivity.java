@@ -42,14 +42,6 @@ public class PersonActivity extends BaseActivity{
         income = extras.getDouble("income");
         tax_before_income.setText(String.valueOf(income));
 
-        //起征点
-        threshold = extras.getDouble("threshold");
-
-        TaxInterface taxInterface = new PersonalTax(income,threshold);
-        //个人所得税
-        person_get_tax = taxInterface.result();
-        person_tax.setText(String.valueOf(person_get_tax));
-
         city = extras.getString("city");
         fund = extras.getDouble("fund");
         medical = extras.getDouble("medical");
@@ -63,8 +55,21 @@ public class PersonActivity extends BaseActivity{
         CalWuxianyijin calWuxianyijin = new CalWuxianyijin(wxyj,income);
         ihf_ = calWuxianyijin.wuxianyijinTotal();
         total_ihf.setText(String.valueOf(ihf_));
+
+        //扣除五险一金后的工资
+        income =income-ihf_;
+
+        //起征点
+        threshold = extras.getDouble("threshold");
+
+        TaxInterface taxInterface = new PersonalTax(income,threshold);
+
+        //个人所得税
+        person_get_tax = taxInterface.result();
+        person_tax.setText(String.valueOf(person_get_tax));
+
         //到手所得
-        total_get.setText(String.valueOf(income-person_get_tax-ihf_));
+        total_get.setText(String.valueOf(income-person_get_tax));
         //五险一金详细
         fund_ = calWuxianyijin.getPublicFundsMoney();
         fund_public.setText(String.valueOf(fund_));
