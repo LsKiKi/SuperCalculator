@@ -64,4 +64,5 @@
     <string name="str_unemployment">失业</string>
     <string name="str_employment_injury">工伤</string>
     <string name="str_maternity">生育</string>
+    <string name="toast_error">"输入错误!!!</string>
 </resources>

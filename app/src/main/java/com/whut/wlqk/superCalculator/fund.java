@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -57,7 +58,7 @@ public class fund extends Fragment {
         /*
          * 添加监听
          */
-        add_listener();
+        add_listener(view);
     }
 
     /**
@@ -157,7 +158,7 @@ public class fund extends Fragment {
     /**
      * add listen to view
      */
-    private void add_listener(){
+    private void add_listener(final View view) {
         /*
          * 贷款数额 EditText 修改事件
          */
@@ -265,7 +266,7 @@ public class fund extends Fragment {
         admit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_click();
+                btn_click(view);
             }
         });
     }
@@ -273,17 +274,23 @@ public class fund extends Fragment {
     /**
      * click compute button
      */
-    public void btn_click() {
-        double money = Double.parseDouble(total_loan.getText().toString()) * 10000;
-        double rate = Double.parseDouble(real_rate.getText().toString().split("%")[0]) / 100;
-        Intent intent = new Intent(getActivity(), ResultActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("type", 1);
-        bundle.putInt("ways", back_way.getSelectedItemPosition() + 1);
-        bundle.putDouble("total_money", money);
-        bundle.putInt("years", Integer.parseInt(String.valueOf(year_num.getSelectedItem())));
-        bundle.putDouble("rate", rate);
-        intent.putExtras(bundle);
-        startActivity(intent);
+    public void btn_click(View view) {
+        try {
+            double money = Double.parseDouble(total_loan.getText().toString()) * 10000;
+            double rate = Double.parseDouble(real_rate.getText().toString().split("%")[0]) / 100;
+            Intent intent = new Intent(getActivity(), ResultActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", 1);
+            bundle.putInt("ways", back_way.getSelectedItemPosition() + 1);
+            bundle.putDouble("total_money", money);
+            bundle.putInt("years", Integer.parseInt(String.valueOf(year_num.getSelectedItem())));
+            bundle.putDouble("rate", rate);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Toast.makeText(view.getContext(), getString(R.string.toast_error), Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
