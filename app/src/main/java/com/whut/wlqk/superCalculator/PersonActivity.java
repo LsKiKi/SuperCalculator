@@ -10,6 +10,8 @@ import com.whut.wlqk.superCalculator.utils.tax.PersonalTax;
 import com.whut.wlqk.superCalculator.utils.tax.TaxInterface;
 import com.whut.wlqk.superCalculator.utils.tax.Wuxianyijin;
 
+import java.text.DecimalFormat;
+
 public class PersonActivity extends BaseActivity{
 
     TextView tax_before_income,person_tax,total_ihf,total_get;
@@ -54,7 +56,7 @@ public class PersonActivity extends BaseActivity{
         Wuxianyijin wxyj = new Wuxianyijin(city,endowment,medical,unemployment,employment_injury,maternity,fund);
         CalWuxianyijin calWuxianyijin = new CalWuxianyijin(wxyj,income);
         ihf_ = calWuxianyijin.wuxianyijinTotal();
-        total_ihf.setText(String.valueOf(ihf_));
+        total_ihf.setText(new DecimalFormat("#.##").format(ihf_));
 
         //扣除五险一金后的工资
         income =income-ihf_;
@@ -69,19 +71,19 @@ public class PersonActivity extends BaseActivity{
         person_tax.setText(String.valueOf(person_get_tax));
 
         //到手所得
-        total_get.setText(String.valueOf(income-person_get_tax));
+        total_get.setText(new DecimalFormat("#.##").format(income-person_get_tax));
         //五险一金详细
         fund_ = calWuxianyijin.getPublicFundsMoney();
-        fund_public.setText(String.valueOf(fund_));
+        fund_public.setText(new DecimalFormat("#.##").format(fund_));
         employment_injury_ = calWuxianyijin.getInjuryMoney();
-        job_injury.setText(String.valueOf(employment_injury_));
+        job_injury.setText(new DecimalFormat("#.##").format(employment_injury_));
         endowment_ = calWuxianyijin.getOldCareMoney();
-        old_care.setText(String.valueOf(endowment_));
+        old_care.setText(new DecimalFormat("#.##").format(endowment_));
         maternity_ = calWuxianyijin.getProcreationMoney();
-        procreation.setText(String.valueOf(maternity_));
+        procreation.setText(new DecimalFormat("#.##").format(maternity_));
         medical_ = calWuxianyijin.getMedicalTreatmentMoney();
-        medical_care.setText(String.valueOf(medical_));
+        medical_care.setText(new DecimalFormat("#.##").format(medical_));
         unemployment_ = calWuxianyijin.getUnemployedMoney();
-        no_job.setText(String.valueOf(unemployment_));
+        no_job.setText(new DecimalFormat("#.##").format(unemployment_));
     }
 }

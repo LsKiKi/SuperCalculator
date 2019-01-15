@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import com.whut.wlqk.superCalculator.utils.tax.YearFinalTax;
 
+import java.text.DecimalFormat;
+
 public class AnnualActivity extends BaseActivity{
 
     TextView get_all,tax_before_inc,per_person_tax;
@@ -30,9 +32,9 @@ public class AnnualActivity extends BaseActivity{
         final_annual = annual_bonus-annual_tax;
 
         //结果显示
-        get_all.setText(String.valueOf(final_annual));
-        tax_before_inc.setText(String.valueOf(annual_bonus));
-        per_person_tax.setText(String.valueOf(annual_tax));
+        get_all.setText(new DecimalFormat("#.##").format(final_annual));
+        tax_before_inc.setText(new DecimalFormat("#.##").format(annual_bonus));
+        per_person_tax.setText(new DecimalFormat("#.##").format(annual_tax));
 
     }
 }
