@@ -8,6 +8,8 @@ import com.whut.wlqk.superCalculator.utils.loan.AverageCaptial;
 import com.whut.wlqk.superCalculator.utils.loan.AverageCaptialPlusInterest;
 import com.whut.wlqk.superCalculator.utils.loan.LoanInterface;
 
+import java.text.DecimalFormat;
+
 public class ResultActivity extends BaseActivity {
 
     TextView first_pay_money, pay_interest, pay_total_money, loan_total_money;
@@ -57,7 +59,7 @@ public class ResultActivity extends BaseActivity {
                 f_p_m = p_m_p;
                 p_m_s = 0;
                 pay_method.setText("每月还款");
-                per_month_pay.setText(String.valueOf(p_m_p));
+                per_month_pay.setText(new DecimalFormat("#.##").format(p_m_p));
                 break;
             case 2:
                 //等额本金
@@ -74,11 +76,11 @@ public class ResultActivity extends BaseActivity {
         //贷款总额
         l_t_m = p_t_m + p_i;
 
-        first_pay_money.setText(String.valueOf(f_p_m));
-        pay_interest.setText(String.valueOf(p_i));
-        pay_total_money.setText(String.valueOf(p_t_m));
-        loan_total_money.setText(String.valueOf(l_t_m));
-        pay_years.setText(String.valueOf(years));
-        per_month_sub.setText(String.valueOf(p_m_s));
+        first_pay_money.setText(new DecimalFormat("#.##").format(f_p_m));
+        pay_interest.setText(new DecimalFormat("#.##").format(p_i));
+        pay_total_money.setText(new DecimalFormat("#.##").format(p_t_m));
+        loan_total_money.setText(new DecimalFormat("#.##").format(l_t_m));
+        pay_years.setText(new DecimalFormat("#.##").format(years));
+        per_month_sub.setText(new DecimalFormat("#.##").format(p_m_s));
     }
 }
