@@ -18,7 +18,7 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 
 
-public class business extends Fragment implements View.OnClickListener {
+public class business extends Fragment {
     EditText total_loan, base_rate, times;
     TextView real_rate, tips;
     Spinner back_way, year_num;
@@ -39,6 +39,25 @@ public class business extends Fragment implements View.OnClickListener {
         /*
          * 查找绑定资源
          */
+        bind_view(view);
+
+        /*
+         * 从xml中填充数据
+         */
+        padding_data(view);
+
+        /*
+         * 添加监听
+         */
+        add_listener();
+    }
+
+    /**
+     * bind view with layout
+     *
+     * @param view parent
+     */
+    private void bind_view(View view) {
         total_loan = view.findViewById(R.id.business_total_loan);
         base_rate = view.findViewById(R.id.business_base_rate);
         times = view.findViewById(R.id.business_rate_times);
@@ -47,7 +66,14 @@ public class business extends Fragment implements View.OnClickListener {
         back_way = view.findViewById(R.id.business_back_way);
         year_num = view.findViewById(R.id.spinner_city);
         btn = view.findViewById(R.id.btn_start_compute_business_loan);
+    }
 
+    /**
+     * padding data from xml resource
+     *
+     * @param view parent
+     */
+    private void padding_data(View view) {
         /*
          * 在xml资源中加载数据
          */
@@ -64,7 +90,66 @@ public class business extends Fragment implements View.OnClickListener {
         final ArrayAdapter<String> year_num_adapter = new ArrayAdapter<>(view.getContext(), R.layout.item_spinner_select, year_num_mItems);
         year_num_adapter.setDropDownViewResource(R.layout.item_dialog_spinner_select);
         year_num.setAdapter(year_num_adapter);
+    }
 
+    /**
+     * edit text event
+     *
+     * @param s        editable
+     * @param df_value default value
+     * @param pointer  mouse pointer
+     * @return real time value
+     */
+    private double et_change(Editable s, double df_value, int pointer, int precision) {
+        double rt_value;
+        String str = s.toString();
+        /*
+         * 若为空，使用默认值
+         */
+        if (str.isEmpty()) {
+            rt_value = df_value;
+        }
+        /*
+         * 若存在小数点
+         */
+        else {
+            if (str.indexOf('.') != -1) {
+                /*
+                 * 最多两位小数，若多于两位小数则无视本次输入
+                 */
+                if (str.indexOf('.') < str.length() - precision - 1) {
+                    s.delete(pointer - 1, pointer);
+                } else
+                    /*
+                     * 若第一个字符为小数点
+                     */
+                    if (str.equals(".")) {
+                        s.insert(0, "0");
+                    }
+            }
+            /*
+             * 0开始的整数
+             */
+            if (str.startsWith("0") && !str.startsWith("0.") && !str.equals("0")) {
+                s.delete(0, 1);
+            }
+            str = s.toString();
+            rt_value = Double.parseDouble(str);
+        }
+        return rt_value;
+    }
+
+    /**
+     * update real time rate
+     */
+    private void update_real_rate() {
+        real_rate.setText(new DecimalFormat("#.####%").format(rate_rt * times_rt / 100));
+    }
+
+    /**
+     * add listen to view
+     */
+    private void add_listener(){
         /*
          * 贷款数额 EditText 修改事件
          */
@@ -93,6 +178,8 @@ public class business extends Fragment implements View.OnClickListener {
                     total_loan.getPaint().setFakeBoldText(false);
                 }
 
+                et_change(s, 0, total_loan.getSelectionStart(), 2);
+
             }
         });
 
@@ -105,7 +192,7 @@ public class business extends Fragment implements View.OnClickListener {
                 /*
                  * 根据选择的年份判断基本利率
                  */
-                int pre_year = Integer.parseInt(year_num_mItems[position]);
+                int pre_year = Integer.parseInt(String.valueOf(parent.getItemAtPosition(position)));
                 default_rate = 4.35;
                 if (pre_year > 5) {
                     default_rate = 4.9;
@@ -120,7 +207,7 @@ public class business extends Fragment implements View.OnClickListener {
                 tips.setText(String.format(view.getResources().getString(R.string.business_tip), default_rate));
                 base_rate.setText(String.valueOf(default_rate));
                 base_rate.setHint(String.valueOf(default_rate));
-                real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_rt / 100));
+                update_real_rate();
 
             }
 
@@ -146,29 +233,8 @@ public class business extends Fragment implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String str = s.toString();
-                /*
-                 * 若为空，使用默认利率
-                 */
-                if (str.isEmpty()) {
-                    real_rate.setText(new DecimalFormat("#.####%").format(default_rate * times_rt / 100));
-                    rate_rt = default_rate;
-                }
-                /*
-                 * 若非空，使用输入的利率
-                 */
-                else {
-                    /*
-                     * 最多两位小数，若多于两位小数则无视本次输入
-                     */
-                    if (str.indexOf('.') != -1 && str.indexOf('.') < str.length() - 3) {
-                        int index = base_rate.getSelectionStart();
-                        s.delete(index - 1, index);
-                        str = s.toString();
-                    }
-                    rate_rt = Double.parseDouble(str);
-                    real_rate.setText(new DecimalFormat("#.####%").format(rate_rt * times_rt / 100));
-                }
+                rate_rt = et_change(s, default_rate, base_rate.getSelectionStart(), 2);
+                update_real_rate();
             }
         });
 
@@ -189,37 +255,27 @@ public class business extends Fragment implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String str = s.toString();
-                /*
-                 * 若为空，使用默认倍数
-                 */
-                if (str.isEmpty()) {
-                    real_rate.setText(new DecimalFormat("#.####%").format(rate_rt * default_times / 100));
-                    times_rt = default_times;
-                }
-                /*
-                 * 若非空，使用输入的倍数
-                 */
-                else {
-                    /*
-                     * 最多两位小数，若多于两位小数则无视本次输入
-                     */
-                    if (str.indexOf('.') != -1 && str.indexOf('.') < str.length() - 3) {
-                        int index = times.getSelectionStart();
-                        s.delete(index - 1, index);
-                        str = s.toString();
-                    }
-                    times_rt = Double.parseDouble(str);
-                    real_rate.setText(new DecimalFormat("#.####%").format(rate_rt * times_rt / 100));
-                }
+                times_rt = et_change(s, default_times, times.getSelectionStart(), 2);
+                update_real_rate();
             }
         });
-        btn.setOnClickListener(this);
 
+        /*
+         * 计算按钮事件
+         */
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_click();
+            }
+        });
     }
 
-    @Override
-    public void onClick(View view) {
+
+    /**
+     * click compute button
+     */
+    public void btn_click() {
         double money = Double.parseDouble(total_loan.getText().toString()) * 10000;
         double rate = Double.parseDouble(real_rate.getText().toString().split("%")[0]) / 100;
         Intent intent = new Intent(getActivity(), ResultActivity.class);
@@ -232,5 +288,4 @@ public class business extends Fragment implements View.OnClickListener {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
 }
