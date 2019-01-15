@@ -35,8 +35,8 @@ public class ExampleUnitTest {
         LoanInterface loanInterface = new AverageCaptial(340000,120, 0.049);
         System.out.println(loanInterface.getTotalMoney());
         System.out.println(loanInterface.getTotalInterest());
-        System.out.println(((AverageCaptial) loanInterface).getFirstMonth());
-        System.out.println(((AverageCaptial) loanInterface).getDecreasedDifference());
+        System.out.println(loanInterface.getFirstMonth());
+        System.out.println(loanInterface.getDecreasedDifference());
     }
 
     @Test
@@ -44,6 +44,6 @@ public class ExampleUnitTest {
         LoanInterface loanInterface = new AverageCaptialPlusInterest(340000,120, 0.0325);
         System.out.println(loanInterface.getTotalMoney());
         System.out.println(loanInterface.getTotalInterest());
-        System.out.println(((AverageCaptialPlusInterest) loanInterface).getMonthlyMoney());
+        System.out.println(loanInterface.getMonthlyMoney());
     }
 }
