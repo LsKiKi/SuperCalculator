@@ -25,6 +25,7 @@ public class monthlySalary extends Fragment implements View.OnClickListener{
     TextView insurance_housing_fund;
     LinearLayout layout;
     Spinner spinner_city;
+    String city;
     EditText input_salary, et_threshold, et_fund, et_medical, et_endowment, et_unemployment, et_employment_injury, et_maternity;
     boolean inf_visible = false;
     DbHelper dbHelper = null;
@@ -71,6 +72,7 @@ public class monthlySalary extends Fragment implements View.OnClickListener{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Wuxianyijin wxyj = queryByCity(city_adapter.getItem(position));
+                city = city_adapter.getItem(position);
                 et_fund.setText(new DecimalFormat("#.##").format(wxyj.getPublicfunds() * 100));
                 et_medical.setText(new DecimalFormat("#.##").format(wxyj.getMedicalTreatment() * 100));
                 et_employment_injury.setText(new DecimalFormat("#.##").format(wxyj.getInjury() * 100));
@@ -81,7 +83,7 @@ public class monthlySalary extends Fragment implements View.OnClickListener{
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                city = city_adapter.getItem(0);
             }
         });
 
@@ -112,12 +114,33 @@ public class monthlySalary extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        double income = Double.parseDouble(input_salary.toString());
-        double threshold = Double.parseDouble(et_threshold.toString());
+        double threshold;
+        double income = Double.parseDouble(input_salary.getText().toString());
+        if(et_threshold.getText().toString().equals("")){
+            threshold = 5000;
+        }else {
+            threshold = Double.parseDouble(et_threshold.getText().toString());
+        }
+        double fund = Double.parseDouble(et_fund.getText().toString())/100;
+        double medical = Double.parseDouble(et_medical.getText().toString())/100;
+        double endowment = Double.parseDouble(et_endowment.getText().toString())/100;
+        double unemployment = Double.parseDouble(et_unemployment.getText().toString())/100;
+        double maternity = Double.parseDouble(et_maternity.getText().toString())/100;
+        double employment_injury = Double.parseDouble(et_employment_injury.getText().toString())/100;
+
         Intent intent = new Intent(getActivity(),PersonActivity.class);
         Bundle bundle = new Bundle();
+
         bundle.putDouble("income",income);
         bundle.putDouble("threshold",threshold);
+        bundle.putDouble("fund",fund);
+        bundle.putDouble("medical",medical);
+        bundle.putDouble("endowment",endowment);
+        bundle.putDouble("unemployment",unemployment);
+        bundle.putDouble("maternity",maternity);
+        bundle.putDouble("employment_injury",employment_injury);
+        bundle.putString("city",city);
+
         intent.putExtras(bundle);
         startActivity(intent);
     }
