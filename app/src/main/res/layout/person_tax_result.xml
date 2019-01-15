@@ -22,6 +22,15 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/total_get"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:textColor="@color/colorTitleSelected"
+            android:textSize="50sp" />
+
+        <TextView
             android:id="@+id/textView58"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -49,7 +58,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center"
+                android:paddingRight="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView40"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:paddingRight="25dp"
+                android:text="元"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -77,7 +95,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
+                android:paddingRight="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:paddingRight="25dp"
+                android:text="元"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -104,7 +131,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
+                android:paddingRight="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView44"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:paddingRight="25dp"
+                android:text="元"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -138,7 +174,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
-                android:paddingRight="25dp" />
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:id="@+id/textView46"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingRight="25dp"
+                android:text="元"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -163,7 +208,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
-                android:paddingRight="25dp" />
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:id="@+id/textView48"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingRight="25dp"
+                android:text="元"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -188,7 +242,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
-                android:paddingRight="25dp" />
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:id="@+id/textView50"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingRight="25dp"
+                android:text="元"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -213,7 +276,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
-                android:paddingRight="25dp" />
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:id="@+id/textView52"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingRight="25dp"
+                android:text="元"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -238,7 +310,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
-                android:paddingRight="25dp" />
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:id="@+id/textView54"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingRight="25dp"
+                android:text="元"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -264,7 +345,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
-                android:paddingRight="25dp" />
+                android:paddingRight="10dp" />
+
+            <TextView
+                android:id="@+id/textView56"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingRight="25dp"
+                android:text="元"
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>
