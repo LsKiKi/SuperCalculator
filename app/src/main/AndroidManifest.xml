@@ -16,12 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.whut.wlqk.superCalculator.ResultActivity">
+        <activity android:name="com.whut.wlqk.superCalculator.LoanResultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="com.whut.wlqk.superCalculator.PersonActivity">
+        <activity android:name="com.whut.wlqk.superCalculator.TaxResultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

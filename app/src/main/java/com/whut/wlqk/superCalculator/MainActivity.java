@@ -1,7 +1,6 @@
 package com.whut.wlqk.superCalculator;
 
 import android.content.Context;
-import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.CallSuper;
@@ -24,9 +23,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView item_jisuan, item_geshui, item_fangdai;
     private ViewPager vp;
-    private simpleCalcul oneFragment;
-    private personCalcul twoFragment;
-    private houseCalcul threeFragment;
+    private SimpleCalculFragment oneFragment;
+    private IncomeTaxFragment twoFragment;
+    private MortgageFragment threeFragment;
     private List<Fragment> mFragmentList = new ArrayList<Fragment>();
     private FragmentAdapter mFragmentAdapter;
 
@@ -80,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         item_fangdai.setOnClickListener(this);
 
         vp = (ViewPager) findViewById(R.id.mainViewPager);
-        oneFragment = new simpleCalcul();
-        twoFragment = new personCalcul();
-        threeFragment = new houseCalcul();
+        oneFragment = new SimpleCalculFragment();
+        twoFragment = new IncomeTaxFragment();
+        threeFragment = new MortgageFragment();
 
         //给FragmentList添加数据
         mFragmentList.add(oneFragment);

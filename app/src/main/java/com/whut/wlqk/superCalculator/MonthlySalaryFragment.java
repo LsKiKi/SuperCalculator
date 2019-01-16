@@ -23,7 +23,7 @@ import com.whut.wlqk.superCalculator.utils.tax.Wuxianyijin;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class monthlySalary extends Fragment {
+public class MonthlySalaryFragment extends Fragment {
 
     TextView insurance_housing_fund;
     LinearLayout layout;
@@ -397,12 +397,12 @@ public class monthlySalary extends Fragment {
             }
 
 
-            Intent intent = new Intent(getActivity(), PersonActivity.class);
+            Intent intent = new Intent(getActivity(), TaxResultActivity.class);
             Bundle bundle = new Bundle();
 
             bundle.putDouble("income", income);
             bundle.putDouble("threshold", threshold);
-            bundle.putDouble("fund", fund);
+            bundle.putDouble("FundFragment", fund);
             bundle.putDouble("medical", medical);
             bundle.putDouble("endowment", endowment);
             bundle.putDouble("unemployment", unemployment);

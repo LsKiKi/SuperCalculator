@@ -3,6 +3,7 @@ package com.whut.wlqk.superCalculator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.whut.wlqk.superCalculator.utils.tax.CalWuxianyijin;
@@ -12,7 +13,7 @@ import com.whut.wlqk.superCalculator.utils.tax.Wuxianyijin;
 
 import java.text.DecimalFormat;
 
-public class PersonActivity extends BaseActivity{
+public class TaxResultActivity extends AppCompatActivity {
 
     TextView tax_before_income,person_tax,total_ihf,total_get;
     TextView fund_public,medical_care,old_care,no_job,job_injury,procreation;
@@ -45,7 +46,7 @@ public class PersonActivity extends BaseActivity{
         tax_before_income.setText(String.valueOf(income));
 
         city = extras.getString("city");
-        fund = extras.getDouble("fund");
+        fund = extras.getDouble("FundFragment");
         medical = extras.getDouble("medical");
         endowment = extras.getDouble("endowment");
         unemployment = extras.getDouble("unemployment");

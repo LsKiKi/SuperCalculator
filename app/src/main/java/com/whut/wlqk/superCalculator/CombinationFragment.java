@@ -19,7 +19,7 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 
 
-public class combination extends Fragment {
+public class CombinationFragment extends Fragment {
     EditText business_loan, business_rate, business_times, fund_loan, fund_rate, fund_times;
     Spinner back_way, year_num;
     TextView business_real_rate, fund_real_rate, tips;
@@ -366,7 +366,7 @@ public class combination extends Fragment {
             double rate = Double.parseDouble(business_real_rate.getText().toString().split("%")[0]) / 100;
             double money_2 = Double.parseDouble(fund_loan.getText().toString()) * 10000;
             double rate_2 = Double.parseDouble(fund_real_rate.getText().toString().split("%")[0]) / 100;
-            Intent intent = new Intent(getActivity(), ResultActivity.class);
+            Intent intent = new Intent(getActivity(), LoanResultActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt("type", 2);
             bundle.putInt("ways", back_way.getSelectedItemPosition() + 1);

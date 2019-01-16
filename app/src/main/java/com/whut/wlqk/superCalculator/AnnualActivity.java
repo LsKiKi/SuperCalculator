@@ -2,13 +2,14 @@ package com.whut.wlqk.superCalculator;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.whut.wlqk.superCalculator.utils.tax.YearFinalTax;
 
 import java.text.DecimalFormat;
 
-public class AnnualActivity extends BaseActivity{
+public class AnnualActivity extends AppCompatActivity {
 
     TextView get_all,tax_before_inc,per_person_tax;
     double annual_bonus , annual_tax , final_annual;

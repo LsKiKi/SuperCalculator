@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.whut.wlqk.superCalculator.utils.calculator.Calculator;
 
 
-public class simpleCalcul extends Fragment implements View.OnClickListener {
+public class SimpleCalculFragment extends Fragment implements View.OnClickListener {
     //显示框
     EditText input;
     //按钮对象

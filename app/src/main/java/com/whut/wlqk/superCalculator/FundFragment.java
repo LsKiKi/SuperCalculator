@@ -9,41 +9,49 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
 
-public class business extends Fragment {
+public class FundFragment extends Fragment {
+
+
+    Spinner back_way, year_num;
     EditText total_loan, base_rate, times;
     TextView real_rate, tips;
-    Spinner back_way, year_num;
-    Button btn;
+    Button admit;
     double default_rate, default_times = 1.0;
     double rate_rt, times_rt = default_times;
 
-    @Override
+    public FundFragment() {
+        // Required empty public constructor
+    }
 
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.business, container, false);
+        View view = inflater.inflate(R.layout.fund, container, false);
         init(view);
         return view;
     }
 
     private void init(View view) {
+
         /*
          * 查找绑定资源
          */
         bind_view(view);
 
+
         /*
-         * 从xml中填充数据
+         *在xml中加载数据
          */
         padding_data(view);
 
@@ -59,14 +67,14 @@ public class business extends Fragment {
      * @param view parent
      */
     private void bind_view(View view) {
-        total_loan = view.findViewById(R.id.business_total_loan);
-        base_rate = view.findViewById(R.id.business_base_rate);
-        times = view.findViewById(R.id.business_rate_times);
-        real_rate = view.findViewById(R.id.business_real_rate);
-        tips = view.findViewById(R.id.business_tips);
-        back_way = view.findViewById(R.id.business_back_way);
-        year_num = view.findViewById(R.id.spinner_city);
-        btn = view.findViewById(R.id.btn_start_compute_business_loan);
+        total_loan = view.findViewById(R.id.money);
+        admit = view.findViewById(R.id.admit);
+        base_rate = view.findViewById(R.id.fund_base_rate);
+        times = view.findViewById(R.id.fund_rate_times);
+        real_rate = view.findViewById(R.id.fund_real_rate);
+        tips = view.findViewById(R.id.fund_tips);
+        back_way = view.findViewById(R.id.fund_back_way);
+        year_num = view.findViewById(R.id.fund_year_num);
     }
 
     /**
@@ -178,43 +186,35 @@ public class business extends Fragment {
                     total_loan.setTextSize(24);
                     total_loan.getPaint().setFakeBoldText(false);
                 }
-
                 et_change(s, 0, total_loan.getSelectionStart(), 2);
 
             }
         });
 
+
         /*
          * 年份 Spinner 选中事件
          */
         year_num.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 /*
                  * 根据选择的年份判断基本利率
                  */
                 int pre_year = Integer.parseInt(String.valueOf(parent.getItemAtPosition(position)));
-                default_rate = 4.35;
-                if (pre_year > 5) {
-                    default_rate = 4.9;
-                } else if (pre_year > 1) {
-                    default_rate = 4.75;
-                }
-                rate_rt = default_rate;
+                default_rate = pre_year > 5 ? 3.25 : 2.75;
 
                 /*
                  * 修改提示语句、基准利率、准确利率
                  */
-                tips.setText(String.format(view.getResources().getString(R.string.business_tip), default_rate));
+                tips.setText(String.format(view.getResources().getString(R.string.fund_tip), default_rate));
                 base_rate.setText(String.valueOf(default_rate));
                 base_rate.setHint(String.valueOf(default_rate));
                 update_real_rate();
-
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
             }
         });
 
@@ -238,7 +238,6 @@ public class business extends Fragment {
                 update_real_rate();
             }
         });
-
 
         /*
          * 倍数 EditText 修改事件
@@ -264,7 +263,7 @@ public class business extends Fragment {
         /*
          * 计算按钮事件
          */
-        btn.setOnClickListener(new View.OnClickListener() {
+        admit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btn_click(view);
@@ -272,15 +271,14 @@ public class business extends Fragment {
         });
     }
 
-
     /**
      * click compute button
      */
     public void btn_click(View view) {
         try {
             double money = Double.parseDouble(total_loan.getText().toString()) * 10000;
-            double rate = rate_rt / 100;
-            Intent intent = new Intent(getActivity(), ResultActivity.class);
+            double rate = Double.parseDouble(real_rate.getText().toString().split("%")[0]) / 100;
+            Intent intent = new Intent(getActivity(), LoanResultActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt("type", 1);
             bundle.putInt("ways", back_way.getSelectedItemPosition() + 1);
@@ -293,5 +291,6 @@ public class business extends Fragment {
             ex.printStackTrace();
             Toast.makeText(view.getContext(), getString(R.string.toast_error), Toast.LENGTH_SHORT).show();
         }
+
     }
 }

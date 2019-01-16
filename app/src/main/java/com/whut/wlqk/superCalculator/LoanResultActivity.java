@@ -2,6 +2,7 @@ package com.whut.wlqk.superCalculator;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,7 +12,7 @@ import com.whut.wlqk.superCalculator.utils.loan.LoanInterface;
 
 import java.text.DecimalFormat;
 
-public class ResultActivity extends BaseActivity {
+public class LoanResultActivity extends AppCompatActivity {
 
     TextView first_pay_money, pay_interest, pay_total_money, loan_total_money;
     TextView pay_years, per_month_pay, per_month_sub, pay_method;

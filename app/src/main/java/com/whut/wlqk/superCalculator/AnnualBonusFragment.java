@@ -12,11 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class annualBonus extends Fragment implements View.OnClickListener {
+public class AnnualBonusFragment extends Fragment implements View.OnClickListener {
     EditText annualbonus;
     Button btn;
 
-    public annualBonus() {
+    public AnnualBonusFragment() {
         // Required empty public constructor
     }
 
