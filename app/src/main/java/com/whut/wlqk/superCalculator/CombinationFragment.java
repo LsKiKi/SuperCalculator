@@ -363,9 +363,9 @@ public class CombinationFragment extends Fragment {
     public void btn_click(View view) {
         try {
             double money = Double.parseDouble(business_loan.getText().toString()) * 10000;
-            double rate = Double.parseDouble(business_real_rate.getText().toString().split("%")[0]) / 100;
+            double rate = business_rate_rt * business_times_rt / 100;
             double money_2 = Double.parseDouble(fund_loan.getText().toString()) * 10000;
-            double rate_2 = Double.parseDouble(fund_real_rate.getText().toString().split("%")[0]) / 100;
+            double rate_2 = fund_rate_rt * fund_times_rt / 100;
             Intent intent = new Intent(getActivity(), LoanResultActivity.class);
             Bundle bundle = new Bundle();
             bundle.putInt("type", 2);
