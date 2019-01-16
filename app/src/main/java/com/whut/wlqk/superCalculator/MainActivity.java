@@ -97,12 +97,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.item_jisuan:
+                //当滑动到计算页面的时候，加载计算页面的内容
                 vp.setCurrentItem(0, true);
                 break;
             case R.id.item_geshui:
+                //当滑动到个税页面的时候，加载个税页面的内容
                 vp.setCurrentItem(1, true);
                 break;
             case R.id.item_fangdai:
+                //当滑动到房贷页面的时候，加载房贷页面的内容
                 vp.setCurrentItem(2, true);
                 break;
 
