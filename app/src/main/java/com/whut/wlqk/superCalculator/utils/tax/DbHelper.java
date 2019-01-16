@@ -17,32 +17,46 @@ import java.util.ArrayList;
 
 public class DbHelper extends SQLiteOpenHelper {
     private static final String TAG = "DbHelper";
-    private static final String DB_NAME = "city.db";
-    private static final int DB_VERSION = 1;
-    //private static DbHelper dbHelper = null;
+    private static final String DB_NAME = "city.db"; //数据库名称
+    private static final int DB_VERSION = 1; //版本号
     private SQLiteDatabase db = null;
-    private String path;
+    private String path;  //文件路径
 
+    /**
+     * 构造函数
+     * db文件转移到sd卡
+     *
+     * @param context
+     */
     public DbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         CopySqliteFileFromRawToDatabases(context);
         path = context.getFilesDir().getParent() + "/databases/city.db";
     }
 
+    /**
+     * 以只读方式打开数据库连接
+     *
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
     }
 
+    /**
+     * 以文件流的方式将db文件转入sd卡
+     *
+     * @param context
+     */
     private void CopySqliteFileFromRawToDatabases(Context context) {
 
-        // 第一次运行应用程序时，加载数据库到data/data/当前包的名称/database/<db_name>
         File files = context.getFilesDir(); //目录
-        File dir = new File(files.getParent(), "databases"); //新建文件夹
+        File dir = new File(files.getParent(), "databases"); //新建文件夹 只能为databases？
         Log.i(TAG, "!dir.exists()=" + !dir.exists());
         Log.i(TAG, "!dir.isDirectory()=" + !dir.isDirectory());
-        if (!dir.exists()) dir.mkdirs();
-        File file = new File(dir, "city.db");
+        if (!dir.exists()) dir.mkdirs();  //如果不存在 创建目录
+        File file = new File(dir, "city.db"); //在文件夹下新建city.db文件
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
 
@@ -59,8 +73,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
                 while ((len = inputStream.read(buffer)) != -1) {
                     outputStream.write(buffer, 0, len);
-                    System.out.println(buffer);
-                    System.out.println(len);
                 }
                 outputStream.flush();
                 outputStream.close();
@@ -76,6 +88,9 @@ public class DbHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * 关闭数据库连接
+     */
     public void close() {
         if (db != null && db.isOpen()) {
             db.close();
@@ -83,6 +98,12 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
+
+    /**
+     * 打开数据库连接
+     *
+     * @return
+     */
     public SQLiteDatabase openRead() {
         if (db == null || !db.isOpen()) {
             db = this.getWritableDatabase();
@@ -90,14 +111,18 @@ public class DbHelper extends SQLiteOpenHelper {
         return db;
     }
 
+    /**
+     * 查询所有城市
+     *
+     * @return List<Sting> citys
+     */
     public ArrayList<String> queryAll() {
-        String sql = "select city from wuxianyijin";//"SELECT name FROM sqlite_master WHERE type='table' ORDER BY name; ";//
+        String sql = "select city from wuxianyijin";
         ArrayList<String> list = new ArrayList<String>();
         Cursor cursor = db.rawQuery(sql, null);
         Log.d(TAG, "queryAll");
         if (cursor.moveToFirst()) {
             for (; ; cursor.moveToNext()) {
-
                 String city = cursor.getString(0);
                 list.add(city);
                 if (cursor.isLast() == true) {
@@ -110,8 +135,13 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
 
+    /**
+     * 以城市名查询五险一金率
+     *
+     * @param city
+     * @return Wuxianyijin
+     */
     public Wuxianyijin queryByCity(String city) {
-        //String sql = String.format("select * from wuxianyijin where city='%s'", city);
         Wuxianyijin wuxianyijin = new Wuxianyijin();
         Cursor cursor = db.query("wuxianyijin", null, "city=?", new String[]{city},
                 null, null, null);

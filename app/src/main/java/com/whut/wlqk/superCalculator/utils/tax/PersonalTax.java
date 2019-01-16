@@ -13,43 +13,43 @@ public class PersonalTax implements TaxInterface {
     //2018 旧税表
     Map<Character, ArrayList<Double>> rateTable = new HashMap<Character, ArrayList<Double>>() {
         {
-            put('1', new ArrayList<Double>() {
+            put('1', new ArrayList<Double>() { //0-3000
                 {
-                    add(0.03);
-                    add(0.0);
+                    add(0.03);  //税率
+                    add(0.0);   //速算扣除数
                 }
             });
-            put('2', new ArrayList<Double>() {
+            put('2', new ArrayList<Double>() {  //3000-12000
                 {
                     add(0.1);
                     add(210.0);
                 }
             });
-            put('3', new ArrayList<Double>() {
+            put('3', new ArrayList<Double>() {  //12000-25000
                 {
                     add(0.2);
                     add(1410.0);
                 }
             });
-            put('4', new ArrayList<Double>() {
+            put('4', new ArrayList<Double>() {  //25000-35000
                 {
                     add(0.25);
                     add(2660.0);
                 }
             });
-            put('5', new ArrayList<Double>() {
+            put('5', new ArrayList<Double>() {  //35000-55000
                 {
                     add(0.3);
                     add(4410.0);
                 }
             });
-            put('6', new ArrayList<Double>() {
+            put('6', new ArrayList<Double>() {  //55000-80000
                 {
                     add(0.35);
                     add(7160.0);
                 }
             });
-            put('7', new ArrayList<Double>() {
+            put('7', new ArrayList<Double>() {  //80000-
                 {
                     add(0.45);
                     add(15160.0);
@@ -88,21 +88,24 @@ public class PersonalTax implements TaxInterface {
      */
     @Override
     public double result() {
-        char a = level(rawMoney - base);
-        double result = 0.0;
+        char a = level(rawMoney - base);  //根据工资减除起征点进行定档
+        double result;
         if (a == '0')
             result = 0.0;
         else {
             double rate = rateTable.get(a).get(0);
             double convenientNum = rateTable.get(a).get(1);
-            result = (rawMoney - base) * rate - convenientNum;
-
+            result = (rawMoney - base) * rate - convenientNum;  //个税=(五险一金后工资-起征点)*税率-速算扣除数
         }
-
         return result;
     }
 
-
+    /**
+     * 对工资进行定档
+     *
+     * @param money
+     * @return char 0-7 代表不同档位
+     */
     char level(double money) {
         if (money <= 0)
             return '0';
