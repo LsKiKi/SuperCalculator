@@ -1,15 +1,29 @@
 package com.whut.wlqk.superCalculator.utils.tax;
 
+/**
+ * 五险一金利率model类
+ */
 public class Wuxianyijin {
 
-    String city;
-    double oldCare;
-    double medicalTreatment;
-    double unempliyed;
-    double injury;
-    double procreation;
-    double publicfunds;
+    String city; //城市
+    double oldCare; //养老保险率
+    double medicalTreatment; //医疗保险率
+    double unempliyed; //失业险率
+    double injury; //工伤险率
+    double procreation; //生育险率
+    double publicfunds; //公积金率
 
+    /**
+     * 构造函数
+     *
+     * @param city
+     * @param oldCare
+     * @param medicalTreatment
+     * @param unempliyed
+     * @param injury
+     * @param procreation
+     * @param publicfunds
+     */
     public Wuxianyijin(String city, double oldCare, double medicalTreatment,
                        double unempliyed, double injury, double procreation, double publicfunds) {
         this.city = city;
@@ -21,7 +35,10 @@ public class Wuxianyijin {
         this.publicfunds = publicfunds;
     }
 
-    public Wuxianyijin(){
+    /**
+     * 默认构造函数
+     */
+    public Wuxianyijin() {
         super();
     }
 

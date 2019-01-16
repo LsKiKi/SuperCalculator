@@ -16,15 +16,21 @@ public class CalWuxianyijin {
     Wuxianyijin wuxianyijin;
     double raw;
 
+    /**
+     * 计算五险一金的构造函数
+     *
+     * @param wuxianyijin 五险一金各项利率
+     * @param raw         初始工资
+     */
     public CalWuxianyijin(Wuxianyijin wuxianyijin, double raw) {
         this.wuxianyijin = wuxianyijin;
         this.raw = raw;
-        this.injuryMoney = wuxianyijin.getInjury() * raw;
-        this.medicalTreatmentMoney = wuxianyijin.getMedicalTreatment() * raw;
-        this.oldCareMoney = wuxianyijin.getOldCare() * raw;
-        this.procreationMoney = wuxianyijin.getProcreation() * raw;
-        this.unemployedMoney = wuxianyijin.getUnempliyed() * raw;
-        this.publicFundsMoney = wuxianyijin.getPublicfunds() * raw;
+        this.injuryMoney = wuxianyijin.getInjury() * raw;  //计算工伤保险
+        this.medicalTreatmentMoney = wuxianyijin.getMedicalTreatment() * raw;  //医疗保险
+        this.oldCareMoney = wuxianyijin.getOldCare() * raw;  //养老保险
+        this.procreationMoney = wuxianyijin.getProcreation() * raw; //生育险
+        this.unemployedMoney = wuxianyijin.getUnempliyed() * raw; //失业险
+        this.publicFundsMoney = wuxianyijin.getPublicfunds() * raw;  //公积金
     }
 
 
@@ -92,6 +98,11 @@ public class CalWuxianyijin {
         this.raw = raw;
     }
 
+    /**
+     * 计算五险一金总额
+     *
+     * @return double 五险一金总额
+     */
     public double wuxianyijinTotal() {
         return injuryMoney + medicalTreatmentMoney + oldCareMoney + procreationMoney + unemployedMoney + publicFundsMoney;
     }

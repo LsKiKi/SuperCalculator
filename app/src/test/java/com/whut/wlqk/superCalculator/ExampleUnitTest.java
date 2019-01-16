@@ -41,7 +41,7 @@ public class ExampleUnitTest {
 
     @Test
     public void ACPLoan(){
-        LoanInterface loanInterface = new AverageCaptialPlusInterest(340000,120, 0.0325);
+        LoanInterface loanInterface = new AverageCaptialPlusInterest(560000,3,0.0275);
         System.out.println(loanInterface.getTotalMoney());
         System.out.println(loanInterface.getTotalInterest());
         System.out.println(loanInterface.getMonthlyMoney());

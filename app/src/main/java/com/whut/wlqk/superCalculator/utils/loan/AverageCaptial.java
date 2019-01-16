@@ -6,11 +6,11 @@ public class AverageCaptial extends Loan implements LoanInterface {
      * 等额本金
      *
      * @param amountOwed 欠款额
-     * @param monthNum   还款月数
+     * @param yearNum    还款月数
      * @param rate       利率
      */
-    public AverageCaptial(double amountOwed, int monthNum, double rate) {
-        super(amountOwed, monthNum, rate);
+    public AverageCaptial(double amountOwed, int yearNum, double rate) {
+        super(amountOwed, yearNum, rate);
     }
 
     @Override
