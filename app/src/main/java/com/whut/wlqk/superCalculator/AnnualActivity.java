@@ -32,7 +32,7 @@ public class AnnualActivity extends AppCompatActivity {
         annual_tax = yearFinalTax.result();
         final_annual = annual_bonus-annual_tax;
 
-        //结果显示
+        //结果显示，保留两位小数
         get_all.setText(new DecimalFormat("#.##").format(final_annual));
         tax_before_inc.setText(new DecimalFormat("#.##").format(annual_bonus));
         per_person_tax.setText(new DecimalFormat("#.##").format(annual_tax));
